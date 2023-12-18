@@ -17,7 +17,6 @@ class HouseOfTheDead(object):
            But you are completely unaware about the dangers that lay ahead. I'm the voice in your head  and will guide 
            you throughout. However, remember, one silly move and you are DEAD!!!
         """)
-        print("aman")
         self.new_game.start_game()
 
 
