@@ -155,26 +155,29 @@ class Locations(object):
         self.deadly_dining_hall(player_data)
 
     def escape_door(self, player_data):
-        key_code = ""
-
-        while key_code != self.key_to_escape:
-            key_input = input("Enter the key: ")
-            if key_input == self.key_to_escape:
-                print("Lucky. You came out alive!!!")
-                print("Congratulations ! You have finished the HOUSE OF THE DEAD.")
-                self.save_progress.save_progress(player_data, "escape_door", self.counter)
-                sys.exit(0)
-            else:
-                print("The key you entered is incorrect. Enter valid key")
-                print("NOTE: You cannot save the game at this point of time. "
-                        "You have to enter the key or make a decision to back to dining hall first.")
-                look_for_key = input("Enter F or Find to look for key again: ")
-                look_for_key = look_for_key.upper()
-                if look_for_key in ["F", "FIND"]:
-                    print(f"Moves: {next(self.counter)}")
-                    self.deadly_dining_hall(player_data)
+        try:
+            key_code = ""
+            while key_code != self.key_to_escape:
+                key_input = input("Enter the key: ")
+                if key_input == self.key_to_escape:
+                    print("Lucky. You came out alive!!!")
+                    print("Congratulations ! You have finished the HOUSE OF THE DEAD.")
+                    self.save_progress.save_progress(player_data, "escape_door", self.counter)
+                    sys.exit(0)
                 else:
-                    self.escape_door(player_data)
+                    print("The key you entered is incorrect. Enter valid key")
+                    print("NOTE: You cannot save the game at this point of time. "
+                            "You have to enter the key or make a decision to back to dining hall first.")
+                    look_for_key = input("Enter F or Find to look for key again: ")
+                    look_for_key = look_for_key.upper()
+                    if look_for_key in ["F", "FIND"]:
+                        print(f"Moves: {next(self.counter)}")
+                        self.deadly_dining_hall(player_data)
+                    else:
+                        self.escape_door(player_data)
+        except AttributeError or KeyError:
+            print("You have not collected the key to escape. Landing you back to the Deadly Dining Hall")
+            self.deadly_dining_hall(player_data)
 
     def dead(self, player_data):
         print("\nYou push some unwanted door, it creeks as it opens.")

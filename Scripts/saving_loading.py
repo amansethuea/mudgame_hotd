@@ -1,5 +1,6 @@
 import csv
 import re
+import sys
 import time
 import progressbar
 from datetime import datetime
@@ -100,18 +101,18 @@ class SaveLoadProcess(object):
         return get_move_count
 
     def load_game(self, user_id):
-        import operator
-        get_user_dict = {}
+        get_user_dict, game_version_list = {}, []
         with open('../Resources/current_game_progress_info.txt', 'r') as data:
             for line in csv.DictReader(data):
-                for attr, val in sorted(line.items(), reverse=True):
+                for attr, val in line.items():
                     if attr == 'UserID':
                         if user_id == val:
-                            if line['GameCompletion'] == 'F' and line['CurrentLocation'] not in (
-                                    'escape_door', 'heaven'):
-                                get_user_dict = line
-
+                            game_version_list.append(line)
             data.close()
+
+        fetch_latest_progress = game_version_list[-1]
+        get_user_dict = fetch_latest_progress
+
         if get_user_dict:
             # Forming player_data dict. Giving a random age as age is not used anywhere other than player_info.txt
             player_data = {"name": get_user_dict["Name"], "age": 20, "user_id": get_user_dict["UserID"],
@@ -135,6 +136,9 @@ class SaveLoadProcess(object):
                 get_move_count = self.get_move_counter_for_load_game(get_user_dict['Moves'])
                 locations = Locations(get_move_count)
                 locations.sinister_stairway(player_data)
+            elif get_user_dict['CurrentLocation'] == "escape_door":
+                print("You have already finished the game. Please start a new game.")
+                sys.exit(0)
             else:
                 print("Invalid Location")
         else:
