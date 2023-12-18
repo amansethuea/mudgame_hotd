@@ -6,6 +6,12 @@ from datetime import datetime
 
 
 class SaveLoadProcess(object):
+    def make_username_available(self):
+        f = open("../Resources/player_info.txt", "w")
+        f.write("")
+        f.write("Name,Age,UserID,Character")
+        f.close()
+
     def leaderboard(self, player_data, move_counter):
         date_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         with open('../Resources/leaderboard.txt', 'a', newline='\n') as csvfile:
@@ -43,6 +49,7 @@ class SaveLoadProcess(object):
             if location in ["escape_door"]:
                 game_completion = "T"
                 self.leaderboard(player_data, move_counter)
+                self.make_username_available()
             else:
                 game_completion = "F"
             if self.check_header_existence('../Resources/current_game_progress_info.txt'):
@@ -66,10 +73,11 @@ class SaveLoadProcess(object):
         return get_move_count
 
     def load_game(self, user_id):
+        import operator
         get_user_dict = {}
         with open('../Resources/current_game_progress_info.txt', 'r') as data:
             for line in csv.DictReader(data):
-                for attr, val in line.items():
+                for attr, val in sorted(line.items(), reverse=True):
                     if attr == 'UserID':
                         if user_id == val:
                             if line['GameCompletion'] == 'F' and line['CurrentLocation'] not in (
