@@ -3,6 +3,7 @@ import re
 import time
 import progressbar
 from datetime import datetime
+import pandas as pandasForSortingCSV
 
 
 class SaveLoadProcess(object):
@@ -11,6 +12,31 @@ class SaveLoadProcess(object):
         f.write("")
         f.write("Name,Age,UserID,Character")
         f.close()
+
+    def sort_leaderboard(self):
+        with open("../Resources/leaderboard.txt", 'r') as r:
+            next(r)
+            rr = csv.reader(r)
+            f = open("../Resources/final_leaderboard.txt", "w")
+            f.write("Name,UserID,Character,Moves,Date&Time\n")
+            for row in rr:
+                get_count = row[3]
+                count_list = re.findall(r'\b\d+\b', get_count)
+                count = count_list[0]
+                count = int(count)
+                f.write(row[0] + "," + row[1] + "," + row[2] + "," + str(count) + "," + row[4] + "\n")
+            f.close()
+            r.close()
+
+        csvData = pandasForSortingCSV.read_csv("../Resources/final_leaderboard.txt")
+        csvData.sort_values(["Moves"],
+                            axis=0,
+                            ascending=[True],
+                            inplace=True)
+        fo = open("../Resources/final_leaderboard.txt", "w")
+        fo.write("")
+        fo.write(str(csvData))
+        fo.close()
 
     def leaderboard(self, player_data, move_counter):
         date_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -49,6 +75,7 @@ class SaveLoadProcess(object):
             if location in ["escape_door"]:
                 game_completion = "T"
                 self.leaderboard(player_data, move_counter)
+                self.sort_leaderboard()
                 self.make_username_available()
             else:
                 game_completion = "F"
@@ -83,6 +110,7 @@ class SaveLoadProcess(object):
                             if line['GameCompletion'] == 'F' and line['CurrentLocation'] not in (
                                     'escape_door', 'heaven'):
                                 get_user_dict = line
+
             data.close()
         if get_user_dict:
             # Forming player_data dict. Giving a random age as age is not used anywhere other than player_info.txt
