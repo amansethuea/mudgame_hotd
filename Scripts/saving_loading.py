@@ -13,7 +13,7 @@ class SaveLoadProcess(object):
         self.slow_print = SlowPrint()
 
     def clear_user_level_info(self):
-        f = open("../Resources/level.txt", "w")
+        f = open("../mudgame_hotd/Resources/level.txt", "w")
         f.write("")
         f.write("UserID,Level")
         f.close()
