@@ -5,10 +5,11 @@ import os.path
 class CharacterCreation(object):
     def save_new_player_data(self):
         new_player_data_dict = self.character_creation()
-        check_file = os.path.isfile("../Resources/player_info.txt")
+        check_file = os.path.isfile("../mudgame_hotd/Resources/player_info.txt")
+        
         if check_file:
             user_id_available = True
-            player_read_file = open("../Resources/player_info.txt", "r")
+            player_read_file = open("../mudgame_hotd/Resources/player_info.txt", "r")
             player_data_list = player_read_file.readlines()
             if player_data_list[1:]:
                 for player in player_data_list[1:]:
@@ -18,7 +19,7 @@ class CharacterCreation(object):
 
                 if user_id_available:
                     player_read_file.close()
-                    player_write_file = open("../Resources/player_info.txt", "a")
+                    player_write_file = open("../mudgame_hotd/Resources/player_info.txt", "a")
                     complete_info = (f"{new_player_data_dict['name']},{new_player_data_dict['age']},"
                                      f"{new_player_data_dict['user_id']},{new_player_data_dict['char']}")
                     player_write_file.write("\n")
@@ -36,7 +37,7 @@ class CharacterCreation(object):
                     sys.exit(0)
             else:
                 print("Great! Saving's first ever HOTD player's information.")
-                player_write_file = open("../Resources/player_info.txt", "w+")
+                player_write_file = open("../mudgame_hotd/Resources/player_info.txt", "w+")
                 player_write_file.write('Name,Age,UserID,Character\n')
                 complete_info = (f"{new_player_data_dict['name']},{new_player_data_dict['age']},"
                                  f"{new_player_data_dict['user_id']},{new_player_data_dict['char']}")
