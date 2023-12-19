@@ -14,3 +14,4 @@ joshua,josh123,tom,count(6),escape_door,2023-12-18 12:18:47,T
 amanseth,amanseth2345,tom,count(10),escape_door,2023-12-18 12:21:04,T
 ata,ata123,nick,count(10),escape_door,2023-12-18 12:22:42,T
 ricky,ricky123,sonic,count(8),escape_door,2023-12-18 12:23:58,T
+efe,efe 2001,Luigi,count(2),sinister_stairway,2023-12-19 20:03:01,F
