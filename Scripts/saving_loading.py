@@ -19,16 +19,16 @@ class SaveLoadProcess(object):
         f.close()
 
     def make_username_available(self):
-        f = open("../Resources/player_info.txt", "w")
+        f = open("../mudgame_hotd/Resources/player_info.txt", "w")
         f.write("")
         f.write("Name,Age,UserID,Character")
         f.close()
 
     def sort_leaderboard(self):
-        with open("../Resources/leaderboard.txt", 'r') as r:
+        with open("../mudgame_hotd/Resources/leaderboard.txt", 'r') as r:
             next(r)
             rr = csv.reader(r)
-            f = open("../Resources/final_leaderboard.txt", "w")
+            f = open("../mudgame_hotd/Resources/final_leaderboard.txt", "w")
             f.write("Name,UserID,Character,Moves,Date&Time\n")
             for row in rr:
                 get_count = row[3]
@@ -39,21 +39,21 @@ class SaveLoadProcess(object):
             f.close()
             r.close()
 
-        csvData = pandasForSortingCSV.read_csv("../Resources/final_leaderboard.txt")
+        csvData = pandasForSortingCSV.read_csv("../mudgame_hotd/Resources/final_leaderboard.txt")
         csvData.sort_values(["Moves"],
                             axis=0,
                             ascending=[True],
                             inplace=True)
-        fo = open("../Resources/final_leaderboard.txt", "w")
+        fo = open("../mudgame_hotd/Resources/final_leaderboard.txt", "w")
         fo.write("")
         fo.write(str(csvData))
         fo.close()
 
     def leaderboard(self, player_data, move_counter):
         date_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        with open('../Resources/leaderboard.txt', 'a', newline='\n') as csvfile:
+        with open('../mudgame_hotd/Resources/leaderboard.txt', 'a', newline='\n') as csvfile:
             write_current_progress = csv.writer(csvfile, delimiter=',')
-            if self.check_header_existence('../Resources/leaderboard.txt'):
+            if self.check_header_existence('../mudgame_hotd/Resources/leaderboard.txt'):
                 write_current_progress.writerow([player_data['name'], player_data['user_id'], player_data['char'],
                                                  move_counter, date_time])
             else:
@@ -81,7 +81,7 @@ class SaveLoadProcess(object):
 
     def save_progress(self, player_data, location, move_counter):
         date_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        with open('../Resources/current_game_progress_info.txt', 'a', newline='\n') as csvfile:
+        with open('../mudgame_hotd/Resources/current_game_progress_info.txt', 'a', newline='\n') as csvfile:
             write_current_progress = csv.writer(csvfile, delimiter=',')
             if location in ["escape_door"]:
                 game_completion = "T"
@@ -91,7 +91,7 @@ class SaveLoadProcess(object):
                 self.clear_user_level_info()
             else:
                 game_completion = "F"
-            if self.check_header_existence('../Resources/current_game_progress_info.txt'):
+            if self.check_header_existence('../mudgame_hotd/Resources/current_game_progress_info.txt'):
                 write_current_progress.writerow([player_data['name'], player_data['user_id'], player_data['char'],
                                                  move_counter, location, date_time, game_completion])
             else:
@@ -113,7 +113,9 @@ class SaveLoadProcess(object):
 
     def load_game(self, user_id):
         get_user_dict, game_version_list = {}, []
-        with open('../Resources/current_game_progress_info.txt', 'r') as data:
+        import operator
+        get_user_dict = {}
+        with open('../mudgame_hotd/Resources/current_game_progress_info.txt', 'r') as data:
             for line in csv.DictReader(data):
                 for attr, val in line.items():
                     if attr == 'UserID':
