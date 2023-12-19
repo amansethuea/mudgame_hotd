@@ -1,12 +1,23 @@
 import csv
 import re
+import sys
 import time
 import progressbar
 from datetime import datetime
+from slow_print import SlowPrint
 import pandas as pandasForSortingCSV
 
 
 class SaveLoadProcess(object):
+    def __init__(self):
+        self.slow_print = SlowPrint()
+
+    def clear_user_level_info(self):
+        f = open("../Resources/level.txt", "w")
+        f.write("")
+        f.write("UserID,Level")
+        f.close()
+
     def make_username_available(self):
         f = open("../mudgame_hotd/Resources/player_info.txt", "w")
         f.write("")
@@ -77,6 +88,7 @@ class SaveLoadProcess(object):
                 self.leaderboard(player_data, move_counter)
                 self.sort_leaderboard()
                 self.make_username_available()
+                self.clear_user_level_info()
             else:
                 game_completion = "F"
             if self.check_header_existence('../mudgame_hotd/Resources/current_game_progress_info.txt'):
@@ -100,23 +112,25 @@ class SaveLoadProcess(object):
         return get_move_count
 
     def load_game(self, user_id):
+        get_user_dict, game_version_list = {}, []
         import operator
         get_user_dict = {}
         with open('../mudgame_hotd/Resources/current_game_progress_info.txt', 'r') as data:
             for line in csv.DictReader(data):
-                for attr, val in sorted(line.items(), reverse=True):
+                for attr, val in line.items():
                     if attr == 'UserID':
                         if user_id == val:
-                            if line['GameCompletion'] == 'F' and line['CurrentLocation'] not in (
-                                    'escape_door', 'heaven'):
-                                get_user_dict = line
-
+                            game_version_list.append(line)
             data.close()
+
+        fetch_latest_progress = game_version_list[-1]
+        get_user_dict = fetch_latest_progress
+
         if get_user_dict:
             # Forming player_data dict. Giving a random age as age is not used anywhere other than player_info.txt
             player_data = {"name": get_user_dict["Name"], "age": 20, "user_id": get_user_dict["UserID"],
                            "char": get_user_dict["Character"]}
-            print(f"Please wait. Loading game for user {get_user_dict['UserID']}")
+            self.slow_print.print_slow(f"Please wait. Loading game for user {get_user_dict['UserID']}")
             self.progress_bar()
             from locations import Locations
             if get_user_dict['CurrentLocation'] == 'deadly_dining_hall':
@@ -135,10 +149,13 @@ class SaveLoadProcess(object):
                 get_move_count = self.get_move_counter_for_load_game(get_user_dict['Moves'])
                 locations = Locations(get_move_count)
                 locations.sinister_stairway(player_data)
+            elif get_user_dict['CurrentLocation'] == "escape_door":
+                self.slow_print.print_slow("You have already finished the game. Please start a new game.")
+                sys.exit(0)
             else:
-                print("Invalid Location")
+                self.slow_print.print_slow("Invalid Location")
         else:
-            print(f"{user_id} user not found. Please start a new game.")
+            self.slow_print.print_slow(f"{user_id} user not found. Please start a new game.")
 
 
 if __name__ == "__main__":
