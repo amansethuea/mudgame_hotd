@@ -1,2 +1,4 @@
 Name,UserID,Character,Moves,CurrentLocation,Date&Time,GameCompletion
 naresh,naresh20,sonic,count(6),escape_door,2023-12-19 12:45:49,T
+Aman,aman123,sonic,count(1),deadly_dining_hall,2023-12-19 12:55:56,F
+aman,amanseth123,Sonic,count(6),escape_door,2023-12-19 13:54:46,T

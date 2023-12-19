@@ -4,6 +4,7 @@ import progressbar
 from character_creation import CharacterCreation
 from locations import Locations
 from saving_loading import SaveLoadProcess
+from slow_print import SlowPrint
 
 
 class NewGame(object):
@@ -11,6 +12,7 @@ class NewGame(object):
         self.new_player_data = CharacterCreation()
         self.locations = Locations(1)
         self.save_load = SaveLoadProcess()
+        self.slow_print = SlowPrint()
 
     def progress_bar(self):
         loop_count = 100
@@ -24,7 +26,7 @@ class NewGame(object):
         game_type_upper = game_type.upper()
         if game_type_upper in ["NEW", "LOAD", "END"]:
             if game_type_upper == "NEW":
-                print("Setting up new game for you. Please wait")
+                self.slow_print.print_slow("Setting up new game for you. Please wait")
                 self.progress_bar()
                 player_data_dict = self.new_player_data.save_new_player_data()
                 level = True
@@ -40,18 +42,20 @@ class NewGame(object):
                         level = False
                         self.locations.deadly_dining_hall(player_data_dict)
                     else:
-                        print("Invalid difficulty level. Please enter again out of: Beginner / Intermediate / Expert")
+                        self.slow_print.print_slow("Invalid difficulty level. Please enter again "
+                                                   "out of: Beginner / Intermediate / Expert")
             elif game_type_upper == "END":
-                print("It's sad you chose not to play. See you next time!")
+                self.slow_print.print_slow("It's sad you chose not to play. See you next time!")
                 sys.exit(0)
             elif game_type_upper == "LOAD":
                 user_id = input("Please enter your existing User ID: ")
-                print("Hang on! We are bringing back your favourite MUD game.")
+                self.slow_print.print_slow("Hang on! We are bringing back your favourite MUD game.")
                 self.save_load.load_game(user_id)
             else:
-                print("Invalid Input. Please enter valid input.")
+                self.slow_print.print_slow("Invalid Input. Please enter valid input.")
         else:
-            print("Invalid input entered. Please enter a valid input. Expected inputs are either 'new' or 'load'.")
+            self.slow_print.print_slow("Invalid input entered. Please enter a valid input. "
+                                       "Expected inputs are either 'new' or 'load'.")
 
 
 if __name__ == "__main__":

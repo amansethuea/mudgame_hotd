@@ -1,2 +1,3 @@
-     Name    UserID Character  Moves            Date&Time
-0  naresh  naresh20     sonic      6  2023-12-19 12:45:49
+     Name       UserID Character  Moves            Date&Time
+0  naresh     naresh20     sonic      6  2023-12-19 12:45:49
+1    aman  amanseth123     Sonic      6  2023-12-19 13:54:46

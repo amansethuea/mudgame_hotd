@@ -4,10 +4,14 @@ import sys
 import time
 import progressbar
 from datetime import datetime
+from slow_print import SlowPrint
 import pandas as pandasForSortingCSV
 
 
 class SaveLoadProcess(object):
+    def __init__(self):
+        self.slow_print = SlowPrint()
+
     def clear_user_level_info(self):
         f = open("../Resources/level.txt", "w")
         f.write("")
@@ -124,7 +128,7 @@ class SaveLoadProcess(object):
             # Forming player_data dict. Giving a random age as age is not used anywhere other than player_info.txt
             player_data = {"name": get_user_dict["Name"], "age": 20, "user_id": get_user_dict["UserID"],
                            "char": get_user_dict["Character"]}
-            print(f"Please wait. Loading game for user {get_user_dict['UserID']}")
+            self.slow_print.print_slow(f"Please wait. Loading game for user {get_user_dict['UserID']}")
             self.progress_bar()
             from locations import Locations
             if get_user_dict['CurrentLocation'] == 'deadly_dining_hall':
@@ -144,12 +148,12 @@ class SaveLoadProcess(object):
                 locations = Locations(get_move_count)
                 locations.sinister_stairway(player_data)
             elif get_user_dict['CurrentLocation'] == "escape_door":
-                print("You have already finished the game. Please start a new game.")
+                self.slow_print.print_slow("You have already finished the game. Please start a new game.")
                 sys.exit(0)
             else:
-                print("Invalid Location")
+                self.slow_print.print_slow("Invalid Location")
         else:
-            print(f"{user_id} user not found. Please start a new game.")
+            self.slow_print.print_slow(f"{user_id} user not found. Please start a new game.")
 
 
 if __name__ == "__main__":
