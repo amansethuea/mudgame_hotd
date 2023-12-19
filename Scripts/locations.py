@@ -29,9 +29,6 @@ class Locations(object):
                     if attr == 'UserID':
                         if player_data['user_id'] == val:
                             self.difficulty_level = line['Level']
-                        else:
-                            self.slow_print.print_slow(f"{val} not found in level.txt")
-                            sys.exit(0)
             data.close()
 
         if self.difficulty_level in ["expert", "Expert", "EXPERT"] and move_count > expert_max_moves:
