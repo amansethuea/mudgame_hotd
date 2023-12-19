@@ -8,6 +8,12 @@ import pandas as pandasForSortingCSV
 
 
 class SaveLoadProcess(object):
+    def clear_user_level_info(self):
+        f = open("../Resources/level.txt", "w")
+        f.write("")
+        f.write("UserID,Level")
+        f.close()
+
     def make_username_available(self):
         f = open("../Resources/player_info.txt", "w")
         f.write("")
@@ -78,6 +84,7 @@ class SaveLoadProcess(object):
                 self.leaderboard(player_data, move_counter)
                 self.sort_leaderboard()
                 self.make_username_available()
+                self.clear_user_level_info()
             else:
                 game_completion = "F"
             if self.check_header_existence('../Resources/current_game_progress_info.txt'):

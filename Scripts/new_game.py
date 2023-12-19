@@ -27,7 +27,20 @@ class NewGame(object):
                 print("Setting up new game for you. Please wait")
                 self.progress_bar()
                 player_data_dict = self.new_player_data.save_new_player_data()
-                self.locations.deadly_dining_hall(player_data_dict)
+                level = True
+                while level:
+                    difficulty_level = input("Please chose a difficulty level: Beginner / Intermediate / Expert: ")
+                    if (difficulty_level in
+                            ["Beginner", "beginner", "BEGINNER", "Intermediate", "intermediate", "INTERMEDIATE",
+                             "Expert", "expert", "EXPERT"]):
+                        fo = open("../Resources/level.txt", "a")
+                        fo.write("\n")
+                        fo.write(player_data_dict['user_id'] + "," + difficulty_level)
+                        fo.close()
+                        level = False
+                        self.locations.deadly_dining_hall(player_data_dict)
+                    else:
+                        print("Invalid difficulty level. Please enter again out of: Beginner / Intermediate / Expert")
             elif game_type_upper == "END":
                 print("It's sad you chose not to play. See you next time!")
                 sys.exit(0)

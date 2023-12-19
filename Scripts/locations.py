@@ -1,5 +1,7 @@
 import random
 import sys
+import re
+import csv
 from itertools import count
 from saving_loading import SaveLoadProcess
 
@@ -8,6 +10,52 @@ class Locations(object):
     def __init__(self, counter):
         self.counter = count(counter)
         self.save_progress = SaveLoadProcess()
+
+    def difficulty_level_handling(self, player_data, counter):
+        beginner_max_moves = 101
+        intermediate_max_moves = 13
+        expert_max_moves = 7
+
+        counter = str(counter)
+        count_list = re.findall(r'\b\d+\b', counter)
+        move_count = count_list[0]
+        move_count = int(move_count)
+
+        with open('../Resources/level.txt', 'r') as data:
+            for line in csv.DictReader(data):
+                for attr, val in line.items():
+                    if attr == 'UserID':
+                        if player_data['user_id'] == val:
+                            self.difficulty_level = line['Level']
+                        else:
+                            print(f"{val} not found in level.txt")
+                            sys.exit(0)
+            data.close()
+
+        if self.difficulty_level in ["expert", "Expert", "EXPERT"] and move_count > expert_max_moves:
+            print(f"Hard luck!! You have exhausted the max number of moves at {self.difficulty_level} "
+                  f"level i.e 6.")
+            print("Please try again. Best of luck!!")
+            self.save_progress.make_username_available()
+            self.save_progress.clear_user_level_info()
+            sys.exit(0)
+        elif (self.difficulty_level in ["intermediate", "Intermediate", "INTERMEDIATE"]
+              and move_count > intermediate_max_moves):
+            print(f"Hard luck!! You have exhausted the max number of moves at {self.difficulty_level} level "
+                  f"i.e 12.")
+            print("Please try again. Best of luck!!")
+            self.save_progress.make_username_available()
+            self.save_progress.clear_user_level_info()
+            sys.exit(0)
+        elif self.difficulty_level in ["beginner", "Beginner", "BEGINNER"] and move_count > beginner_max_moves:
+            print(f"Hard luck!! You have exhausted the max number of moves at {self.difficulty_level} "
+                  f"level i.e 100.")
+            print("Please try again. Best of luck!!")
+            self.save_progress.make_username_available()
+            self.save_progress.clear_user_level_info()
+            sys.exit(0)
+        else:
+            pass
 
     def deadly_dining_hall(self, player_data):
         print()
@@ -21,12 +69,15 @@ class Locations(object):
         choice = choice.upper()
         if choice in ["N", "NORTH"]:
             print(f"Moves: {next(self.counter)}")
+            self.difficulty_level_handling(player_data, self.counter)
             self.haunted_hallway(player_data)
         elif choice in ["S", "SOUTH"]:
             print(f"Moves: {next(self.counter)}")
+            self.difficulty_level_handling(player_data, self.counter)
             self.chilling_corridor(player_data)
         elif choice in ["E", "EAST"]:
             print(f"Moves: {next(self.counter)}")
+            self.difficulty_level_handling(player_data, self.counter)
             self.sinister_stairway(player_data)
         elif choice in ["W", "WEST"]:
             print(f"Moves: {next(self.counter)}")
@@ -36,6 +87,7 @@ class Locations(object):
         else:
             print("I did not understand that. Let's try again. HURRY! You have to get out now!!")
             print(f"Moves: {next(self.counter)}")
+            self.difficulty_level_handling(player_data, self.counter)
             self.deadly_dining_hall(player_data)
 
     def haunted_hallway(self, player_data):
@@ -62,6 +114,7 @@ class Locations(object):
                 self.haunted_hallway(player_data)
         elif choice in ["S", "SOUTH"]:
             print(f"Moves: {next(self.counter)}")
+            self.difficulty_level_handling(player_data, self.counter)
             self.deadly_dining_hall(player_data)
         elif choice in ["W", "WEST", "E", "EAST"]:
             print(f"Moves: {next(self.counter)}")
@@ -71,6 +124,7 @@ class Locations(object):
         else:
             print("I did not understand that. Let's try again. ")
             print(f"Moves: {next(self.counter)}")
+            self.difficulty_level_handling(player_data, self.counter)
             self.haunted_hallway(player_data)
 
     def chilling_corridor(self, player_data):
@@ -83,18 +137,22 @@ class Locations(object):
         choice = choice.upper()
         if choice in ["N", "North"]:
             print(f"Moves: {next(self.counter)}")
+            self.difficulty_level_handling(player_data, self.counter)
             self.deadly_dining_hall(player_data)
         elif choice in ["W", "WEST"]:
             print(f"Moves: {next(self.counter)}")
+            self.difficulty_level_handling(player_data, self.counter)
             self.spooky_lab(player_data)
         elif choice in ["E", "EAST", "S", "SOUTH"]:
             print(f"Moves: {next(self.counter)}")
+            self.difficulty_level_handling(player_data, self.counter)
             self.dead(player_data)
         elif choice in ["SAVE"]:
             self.save_progress.save_progress(player_data, "chilling_corridor", self.counter)
         else:
             print("I did not understand that. Let's try again. ")
             print(f"Moves: {next(self.counter)}")
+            self.difficulty_level_handling(player_data, self.counter)
             self.chilling_corridor(player_data)
 
     def sinister_stairway(self, player_data):
@@ -108,18 +166,22 @@ class Locations(object):
         choice = choice.upper()
         if choice in ["S", "SOUTH"]:
             print(f"Moves: {next(self.counter)}")
+            self.difficulty_level_handling(player_data, self.counter)
             self.dark_dungeon(player_data)
         elif choice in ["W", "WEST"]:
             print(f"Moves: {next(self.counter)}")
+            self.difficulty_level_handling(player_data, self.counter)
             self.deadly_dining_hall(player_data)
         elif choice in ["N", "NORTH", "E", "EAST"]:
             print(f"Moves: {next(self.counter)}")
+            self.difficulty_level_handling(player_data, self.counter)
             self.dead(player_data)
         elif choice in ["SAVE"]:
             self.save_progress.save_progress(player_data, "sinister_stairway", self.counter)
         else:
             print("I did not understand that. Let's try again. ")
             print(f"Moves: {next(self.counter)}")
+            self.difficulty_level_handling(player_data, self.counter)
             self.sinister_stairway(player_data)
 
     def spooky_lab(self, player_data):
@@ -140,6 +202,7 @@ class Locations(object):
         print("\nWell done " + player_data['name'] + ", you're doing great.")
         input("Press ENTER to leave the room.\n")
         print(f"Moves: {next(self.counter)}")
+        self.difficulty_level_handling(player_data, self.counter)
         self.chilling_corridor(player_data)
 
     def dark_dungeon(self, player_data):
@@ -152,6 +215,7 @@ class Locations(object):
         print("NOTE: You cannot save the game at this point of time. You have to get our of the dark dungeon first.")
         input("Press ENTER to head back up the stairs to the main hall.\n")
         print(f"Moves: {next(self.counter)}")
+        self.difficulty_level_handling(player_data, self.counter)
         self.deadly_dining_hall(player_data)
 
     def escape_door(self, player_data):
@@ -167,11 +231,12 @@ class Locations(object):
                 else:
                     print("The key you entered is incorrect. Enter valid key")
                     print("NOTE: You cannot save the game at this point of time. "
-                            "You have to enter the key or make a decision to back to dining hall first.")
+                          "You have to enter the key or make a decision to back to dining hall first.")
                     look_for_key = input("Enter F or Find to look for key again: ")
                     look_for_key = look_for_key.upper()
                     if look_for_key in ["F", "FIND"]:
                         print(f"Moves: {next(self.counter)}")
+                        self.difficulty_level_handling(player_data, self.counter)
                         self.deadly_dining_hall(player_data)
                     else:
                         self.escape_door(player_data)

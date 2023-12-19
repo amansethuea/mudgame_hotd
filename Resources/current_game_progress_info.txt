@@ -1,3 +1,2 @@
 Name,UserID,Character,Moves,CurrentLocation,Date&Time,GameCompletion
-aman,aman123,sonic,count(6),escape_door,2023-12-18 16:07:41,T
-aman,amanseth123,sonic,count(6),escape_door,2023-12-18 16:09:31,T
+naresh,naresh20,sonic,count(6),escape_door,2023-12-19 12:45:49,T
