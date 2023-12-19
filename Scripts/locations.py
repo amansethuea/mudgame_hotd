@@ -23,7 +23,7 @@ class Locations(object):
         move_count = count_list[0]
         move_count = int(move_count)
 
-        with open('../mudgame_hotd/Resources/level.txt', 'r') as data:
+        with open('../../mudgame_hotd/Resources/level.txt', 'r') as data:
             for line in csv.DictReader(data):
                 for attr, val in line.items():
                     if attr == 'UserID':
