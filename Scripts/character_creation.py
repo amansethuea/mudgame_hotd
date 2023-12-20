@@ -1,5 +1,4 @@
 import sys
-import os.path
 from slow_print import SlowPrint
 
 
