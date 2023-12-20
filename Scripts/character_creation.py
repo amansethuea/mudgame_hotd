@@ -73,8 +73,8 @@ class CharacterCreation(object):
                 player_data_dict = {"name": player_name, "age": player_age, "user_id": player_user_id,
                                     "char": choose_char}
                 return player_data_dict
-            break
 
 
 if __name__ == "__main__":
     obj = CharacterCreation()
+    obj.character_creation()
