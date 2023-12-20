@@ -1,3 +1,4 @@
+import os
 from game_logo import GameLogo
 from new_game import NewGame
 from slow_print import SlowPrint
@@ -10,6 +11,12 @@ class HouseOfTheDead(object):
         self.slow_print = SlowPrint()
 
     def main(self):
+        self.slow_print.print_slow("Installing packages in requirement.txt")
+        get_requirement_file = self.slow_print.check_dir_file_exists("Resources", "requirements.txt")
+        if "not found" not in get_requirement_file:
+            os.system(f"pip install -r {get_requirement_file}")
+        self.slow_print.print_slow("Packages Installed. Proceeding")
+        print()
         self.logo.logo()
         scenario = ("""
            SCENARIO :-
