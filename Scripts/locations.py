@@ -22,16 +22,13 @@ class Locations(object):
         count_list = re.findall(r'\b\d+\b', counter)
         move_count = count_list[0]
         move_count = int(move_count)
-
-        with open('../../mudgame_hotd/Resources/level.txt', 'r') as data:
+        get_file = self.slow_print.check_dir_file_exists("Resources", "level.txt")
+        with open(get_file, 'r') as data:
             for line in csv.DictReader(data):
                 for attr, val in line.items():
                     if attr == 'UserID':
                         if player_data['user_id'] == val:
                             self.difficulty_level = line['Level']
-                        else:
-                            self.slow_print.print_slow(f"{val} not found in level.txt")
-                            sys.exit(0)
             data.close()
 
         if self.difficulty_level in ["expert", "Expert", "EXPERT"] and move_count > expert_max_moves:

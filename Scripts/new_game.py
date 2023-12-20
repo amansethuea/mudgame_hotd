@@ -35,7 +35,8 @@ class NewGame(object):
                     if (difficulty_level in
                             ["Beginner", "beginner", "BEGINNER", "Intermediate", "intermediate", "INTERMEDIATE",
                              "Expert", "expert", "EXPERT"]):
-                        fo = open("../../mudgame_hotd/Resources/level.txt", "a")
+                        get_file = self.slow_print.check_dir_file_exists("Resources", "level.txt")
+                        fo = open(get_file, "a")
                         fo.write("\n")
                         fo.write(player_data_dict['user_id'] + "," + difficulty_level)
                         fo.close()
