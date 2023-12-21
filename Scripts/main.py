@@ -35,7 +35,6 @@ class HouseOfTheDead(object):
 if __name__ == "__main__":
     obj = HouseOfTheDead()
     obj.main()
-
     loader=unittest.TestLoader()
    
     suite=(loader.loadTestsFromTestCase(testAge)) 
@@ -43,6 +42,6 @@ if __name__ == "__main__":
     suite3=(loader.loadTestsFromTestCase(testUserId))
     mergedTests=unittest.TestSuite([suite,suite2,suite3])
     
-    with open('test_report.html', 'w') as f:
+    with open('reports/test_report.html', 'w') as f:
         runner = HTMLTestRunner(stream=f , combine_reports=True)
         result = runner.run(mergedTests)
