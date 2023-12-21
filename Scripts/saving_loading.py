@@ -97,12 +97,12 @@ class SaveLoadProcess(object):
             else:
                 game_completion = "F"
             if self.check_header_existence(self.get_current_game):
-                write_current_progress.writerow([player_data['name'], player_data['user_id'], player_data['char'],
+                write_current_progress.writerow([player_data['name'], player_data['user_id'], player_data['age'], player_data['char'],
                                                  move_counter, location, date_time, game_completion])
             else:
-                write_current_progress.writerow(["Name", "UserID", "Character", "Moves", "CurrentLocation", "Date&Time",
+                write_current_progress.writerow(["Name", "UserID", "Age", "Character", "Moves", "CurrentLocation", "Date&Time",
                                                  "GameCompletion"])
-                write_current_progress.writerow([player_data['name'], player_data['user_id'], player_data['char'],
+                write_current_progress.writerow([player_data['name'], player_data['user_id'],player_data['age'], player_data['char'],
                                                  move_counter, location, date_time, game_completion])
             csvfile.close()
 
@@ -130,10 +130,10 @@ class SaveLoadProcess(object):
 
         fetch_latest_progress = game_version_list[-1]
         get_user_dict = fetch_latest_progress
-
+        
         if get_user_dict:
             # Forming player_data dict. Giving a random age as age is not used anywhere other than player_info.txt
-            player_data = {"name": get_user_dict["Name"], "age": 20, "user_id": get_user_dict["UserID"],
+            player_data = {"name": get_user_dict["Name"], "age": get_user_dict["Age"] , "user_id": get_user_dict["UserID"],
                            "char": get_user_dict["Character"]}
             self.slow_print.print_slow(f"Please wait. Loading game for user {get_user_dict['UserID']}")
             self.progress_bar()

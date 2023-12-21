@@ -1,8 +1,10 @@
 import os
+import unittest
 from game_logo import GameLogo
 from new_game import NewGame
 from slow_print import SlowPrint
-
+from HtmlTestRunner import HTMLTestRunner
+from test_unitTests import testUserId,testAge,testName
 
 class HouseOfTheDead(object):
     def __init__(self):
@@ -33,3 +35,14 @@ class HouseOfTheDead(object):
 if __name__ == "__main__":
     obj = HouseOfTheDead()
     obj.main()
+
+    loader=unittest.TestLoader()
+   
+    suite=(loader.loadTestsFromTestCase(testAge)) 
+    suite2=(loader.loadTestsFromTestCase(testName))  
+    suite3=(loader.loadTestsFromTestCase(testUserId))
+    mergedTests=unittest.TestSuite([suite,suite2,suite3])
+    
+    with open('test_report.html', 'w') as f:
+        runner = HTMLTestRunner(stream=f , combine_reports=True)
+        result = runner.run(mergedTests)
