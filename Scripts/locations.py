@@ -226,7 +226,8 @@ class Locations(object):
                     self.slow_print.print_slow("Lucky. You came out alive!!!")
                     self.slow_print.print_slow("Congratulations ! You have finished the HOUSE OF THE DEAD.")
                     self.save_progress.save_progress(player_data, "escape_door", self.counter)
-                    sys.exit(0)
+                    #sys.exit(0)
+                    return
                 else:
                     self.slow_print.print_slow("The key you entered is incorrect. Enter valid key")
                     self.slow_print.print_slow("NOTE: You cannot save the game at this point of time. "
@@ -257,7 +258,7 @@ class Locations(object):
         else:
             self.slow_print.print_slow("Thank you for playing the HOTD. See you next time!")
             self.save_progress.save_progress(player_data, "heaven", self.counter)
-            sys.exit(0)
+            #sys.exit(0)
 
 
 if __name__ == "__main__":
