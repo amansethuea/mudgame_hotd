@@ -4,7 +4,7 @@ from game_logo import GameLogo
 from new_game import NewGame
 from slow_print import SlowPrint
 from HtmlTestRunner import HTMLTestRunner
-from test_unitTests import testUserId,testAge,testName
+from test_unitTests import testUserId,testAge,testName,testGameStatus,testLeaderBoard,testLevel_and_PlayerInfo
 
 class HouseOfTheDead(object):
     def __init__(self):
@@ -40,7 +40,10 @@ if __name__ == "__main__":
     suite=(loader.loadTestsFromTestCase(testAge)) 
     suite2=(loader.loadTestsFromTestCase(testName))  
     suite3=(loader.loadTestsFromTestCase(testUserId))
-    mergedTests=unittest.TestSuite([suite,suite2,suite3])
+    suite4=(loader.loadTestsFromTestCase(testGameStatus))
+    suite5=(loader.loadTestsFromTestCase(testLeaderBoard))
+    suite6=(loader.loadTestsFromTestCase(testLevel_and_PlayerInfo))
+    mergedTests=unittest.TestSuite([suite,suite2,suite3,suite4,suite5,suite6])
     
     with open('reports/test_report.html', 'w') as f:
         runner = HTMLTestRunner(stream=f , combine_reports=True)
