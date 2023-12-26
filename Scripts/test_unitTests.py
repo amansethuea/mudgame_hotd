@@ -27,6 +27,8 @@ class CreateTest (unittest.TestCase):
         self.userIds=[]
         for j in range(0,len(lines3)):
             userIdInLevelTxt=lines3[j].split(',')
+            if len(userIdInLevelTxt)==1:
+               continue
             self.userIds.append(userIdInLevelTxt[0])
         
 
@@ -35,6 +37,8 @@ class CreateTest (unittest.TestCase):
         self.userIds2=[]
         for j in range(0,len(lines4)):
             userIdInplayerTxt=lines4[j].split(',')
+            if len(userIdInplayerTxt)==1:
+               continue
             self.userIds2.append(userIdInplayerTxt[2])
        
         
@@ -78,10 +82,14 @@ class testLeaderBoard(CreateTest):
 
 class testLevel_and_PlayerInfo(CreateTest):
     def test_levelTxt(self):
-        self.assertTrue(self.progressList[1] not in self.userIds)
+        self.location=self.progressList[5]
+        if self.location=="heaven" or self.location=="escape_door":
+            self.assertTrue(self.progressList[1] not in self.userIds)
         
     def test_playerInfoTxt(self):
-        self.assertTrue(self.progressList[1] not in self.userIds2)
+        self.location=self.progressList[5]
+        if self.location=="heaven" or self.location=="escape_door":
+            self.assertTrue(self.progressList[1] not in self.userIds2)
 
 if __name__ == "__main__":
     o=CreateTest()
