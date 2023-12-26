@@ -69,12 +69,12 @@ class CharacterCreation(object):
             else:
                 break
 
-        def has_aplhabets(input_string):
+        def has_alphabets(input_string):
             return any(char.isalpha() for char in input_string)
 
         while True:
             player_age = input("Enter your age: ")
-            if has_aplhabets(player_age):
+            if has_alphabets(player_age):
                 self.slow_print.print_slow(f"{player_age} contains alphabetical values. Please make sure age only "
                                            f"contains numbers between 3 - 99")
             elif int(player_age) < 3 or int(player_age) > 99:
