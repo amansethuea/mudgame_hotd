@@ -47,5 +47,5 @@ if __name__ == "__main__":
     mergedTests = unittest.TestSuite([suite, suite2, suite3, suite4, suite5, suite6])
     
     with open('reports/test_report.html', 'w') as f:
-        runner = HTMLTestRunner(stream=f, combine_reports=True)
+        runner = HTMLTestRunner(stream=f, combine_reports=True,open_in_browser=True)
         result = runner.run(mergedTests)

@@ -15,8 +15,11 @@ class CharacterCreation(object):
             player_read_file = open(get_file, "r")
             player_data_list = player_read_file.readlines()
             if player_data_list[1:]:
+               
                 for player in player_data_list[1:]:
                     player_list = player.split(",")
+                    if len(player_list)==1:
+                        continue
                     if new_player_data_dict['user_id'] == player_list[2]:
                         user_id_available = False
 
