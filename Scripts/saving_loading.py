@@ -62,14 +62,15 @@ class SaveLoadProcess(object):
             f.close()
             r.close()
         csv_data = pandasForSortingCSV.read_csv(self.get_final_leaderboard)
-        csv_data.sort_values(["Moves"],
-                            axis=0,
-                            ascending=[True],
-                            inplace=True)
+        csv_data.sort_values(["Moves"], axis=0, ascending=[True], inplace=True)
         fo = open(self.get_final_leaderboard, "w")
         fo.write("")
         fo.write(str(csv_data))
         fo.close()
+        print("\n")
+        self.slow_print.print_slow("################### LEADERBOARD ###################")
+        print(csv_data)
+        self.slow_print.print_slow("###################################################")
 
     def leaderboard(self, player_data, move_counter):
         date_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')

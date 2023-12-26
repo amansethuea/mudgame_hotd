@@ -284,7 +284,8 @@ class Locations(object):
                     else:
                         self.escape_door(player_data)
         except AttributeError or KeyError:
-            print("You have not collected the key to escape. Landing you back to the Deadly Dining Hall")
+            self.slow_print.print_slow("You have not collected the key to escape. Landing you back to the "
+                                       "Deadly Dining Hall")
             self.deadly_dining_hall(player_data)
 
     def dead(self, player_data):
