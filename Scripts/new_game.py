@@ -23,6 +23,7 @@ class NewGame(object):
 
     def start_game(self):
         while True:
+            print(f"\033[1;37;40m\033")
             game_type = input("Do you wish to play new game or load saved game? Please enter new or load: ")
             game_type_upper = game_type.upper()
             if game_type_upper in ["NEW", "LOAD", "END"]:
@@ -42,17 +43,24 @@ class NewGame(object):
                             fo.write(player_data_dict['user_id'] + "," + difficulty_level)
                             fo.close()
                             level = False
+                            print('\033[39m')
                             self.locations.deadly_dining_hall(player_data_dict)
                         else:
+                            print(f"\033[1;37;40m\033")
                             self.slow_print.print_slow("Invalid difficulty level. Please enter again "
                                                        "out of: Beginner / Intermediate / Expert")
+                            print('\033[39m')
                     break
                 elif game_type_upper == "END":
+                    print(f"\033[1;37;40m\033")
                     self.slow_print.print_slow("It's sad you chose not to play. See you next time!")
+                    print('\033[39m')
                     sys.exit(0)
                 elif game_type_upper == "LOAD":
+                    print(f"\033[1;37;40m\033")
                     user_id = input("Please enter your existing User ID: ")
                     self.slow_print.print_slow("Hang on! We are bringing back your favourite MUD game.")
+                    print('\033[39m')
                     self.save_load.load_game(user_id)
                     break
                 else:

@@ -63,6 +63,7 @@ class Locations(object):
             pass
 
     def deadly_dining_hall(self, player_data):
+        print(f"\033[1;36;40m\033")
         print()
         self.slow_print.print_slow("You are in the main dining hall of the haunted house, standing alone, in the dark.")
         self.slow_print.print_slow("You see three ways to go.")
@@ -70,6 +71,7 @@ class Locations(object):
         self.slow_print.print_slow("BEWARE!!! DO NOT go to go the West")
         self.slow_print.print_slow("Remember you can type Save/save the game at any point.")
         print()
+        print('\033[39m')
 
         def sub_function_dining_hall():
             choice = input("Enter either N/North, S/South or E/East: ")
@@ -91,8 +93,11 @@ class Locations(object):
                 self.dead(player_data)
             elif choice in ["SAVE"]:
                 self.save_progress.save_progress(player_data, "deadly_dining_hall", self.counter)
+                print(f"\033[1;38;40m\033")
                 self.slow_print.print_slow("Do you wish to continue playing or exit ?")
+                print('\033[39m')
                 while True:
+                    print(f"\033[1;38;40m\033")
                     enter_choice = input("Please choose either C (Continue) or E (Exit): ")
                     if enter_choice.upper() in ["E", "EXIT"]:
                         self.slow_print.print_slow("Exiting. See you soon!!")
@@ -103,15 +108,19 @@ class Locations(object):
                         break
                     else:
                         self.slow_print.print_slow("Invalid input. Please choose either C or E.")
+                    print('\033[39m')
             else:
+                print(f"\033[1;38;40m\033")
                 self.slow_print.print_slow(
                     "I did not understand that. Let's try again. HURRY! You have to get out now!!")
                 self.slow_print.print_slow(f"Moves: {next(self.counter)}")
                 self.difficulty_level_handling(player_data, self.counter)
+                print('\033[39m')
                 self.deadly_dining_hall(player_data)
         sub_function_dining_hall()
 
     def haunted_hallway(self, player_data):
+        print(f"\033[1;37;40m\033")
         self.slow_print.print_slow("You are in a creepy hallway where zombies are roaming looking for prey to suck "
                                    "blood out of them")
         self.slow_print.print_slow("You notice there are ways to the north (N) and south (S).")
@@ -119,6 +128,7 @@ class Locations(object):
                                    "the most painful death.")
         self.slow_print.print_slow("Remember you can type Save/save the game at any point.")
         print()
+        print('\033[39m')
 
         def sub_function_haunted_hallway():
             choice = input("Enter either N/North or S/South: ")
@@ -166,12 +176,15 @@ class Locations(object):
         sub_function_haunted_hallway()
 
     def chilling_corridor(self, player_data):
+        print(f"\033[1;35;40m\033")
+        print()
         self.slow_print.print_slow("You are in a corridor which is freezing cold.")
         self.slow_print.print_slow("You see directions to the north (N) and west (W).")
         self.slow_print.print_slow("BEWARE!!! DO NOT go to East (E) or South (S) if you wish not to die the most "
                                    "painful death.")
         self.slow_print.print_slow("Remember you can type Save/save the game at any point.")
         print()
+        print('\033[39m')
 
         def sub_function_chilling_corridor():
             choice = input("Which way will you go to?  Make your choice: ")
@@ -210,6 +223,7 @@ class Locations(object):
         sub_function_chilling_corridor()
 
     def sinister_stairway(self, player_data):
+        print(f"\033[1;34;40m\033")
         print()
         self.slow_print.print_slow("This is a wooden stairway. Be careful!!!")
         self.slow_print.print_slow("You see heavy wooden doors at the bottom of the stairs and back to the west.")
@@ -217,6 +231,7 @@ class Locations(object):
                                    "painful death.")
         self.slow_print.print_slow("Remember you can type Save/save the game at any point.")
         print()
+        print('\033[39m')
 
         def sub_function_sinister_stairway():
             choice = input("Will you take the door at the bottom of the stairs (S) or back to the west (W)? ")
@@ -255,6 +270,7 @@ class Locations(object):
         sub_function_sinister_stairway()
 
     def spooky_lab(self, player_data):
+        print(f"\033[1;33;40m\033")
         print()
         self.slow_print.print_slow("You're in a spooky lab with bubbling tubes of phosphorous liquids.")
         self.slow_print.print_slow("There's also a monstrous figure in the far corner.  It hasn't seen you yet.")
@@ -266,6 +282,7 @@ class Locations(object):
         self.slow_print.print_slow("You open the drawer and find instructions on how to get out of the front door.")
         self.slow_print.print_slow('The instructions say "There is a keypad on the front door.  To get out, ... ')
         self.slow_print.print_slow('Enter the name of what you saw in the Dark Dungeon".\n')
+        print('\033[39m')
         instructions = ""
         while instructions not in ("Yes", "YES", "yes"):
             instructions = input("Confirm (Yes) that you have read the instructions: ")
@@ -293,12 +310,14 @@ class Locations(object):
         pick_item = random.choice(item_list)
         key_generator = random.randrange(10000, 1000000)
         self.key_to_escape = pick_item + str(key_generator)
+        print(f"\033[1;32;40m\033")
         self.slow_print.print_slow(f"You've found a dungeon which has {self.key_to_escape} allover")
         self.slow_print.print_slow("Remember what you've seen. This will help you to get out of the house.")
         self.slow_print.print_slow("NOTE: You cannot save the game at this point of time. You have to get our of the "
                                    "dark dungeon first.")
         input("Press ENTER to head back up the stairs to the main hall.\n")
         self.slow_print.print_slow(f"Moves: {next(self.counter)}")
+        print('\033[39m')
         self.difficulty_level_handling(player_data, self.counter)
         self.deadly_dining_hall(player_data)
 

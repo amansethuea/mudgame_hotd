@@ -6,6 +6,7 @@ class Challenges(object):
         self.slow_print = SlowPrint()
 
     def spooky_lab_escape_challenge(self):
+        print(f"\033[1;35;40m\033")
         print()
         self.slow_print.print_slow("Not so easy to get out of the spooky lab")
         self.slow_print.print_slow("There is vicious zombie at the door of the spooky lab")
@@ -59,12 +60,14 @@ class Challenges(object):
             else:
                 print("Invalid input given. Please enter either A, B or C")
 
+        print('\033[39m')
         if len(correct_ans_list) > len(wrong_ans_list):
             return True
         else:
             return False
 
     def escape_door_challenge(self):
+        print(f"\033[1;34;40m\033")
         print()
         self.slow_print.print_slow("Oh oh! There is a ghost right outside the escape door")
         self.slow_print.print_slow("You need to cast the magic spells to make it go away")
@@ -118,6 +121,7 @@ class Challenges(object):
             else:
                 print("Invalid input given. Please enter either A, B or C")
 
+        print('\033[39m')
         if len(correct_ans_list) > len(wrong_ans_list):
             return True
         else:

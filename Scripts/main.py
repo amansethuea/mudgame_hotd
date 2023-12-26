@@ -29,7 +29,9 @@ class HouseOfTheDead(object):
            But you are completely unaware about the dangers that lay ahead. I'm the voice in your head  and will guide 
            you throughout. However, remember, one silly move and you are DEAD!!!
         """)
+        print(f"\033[1;36;40m\033")
         self.slow_print.print_slow(scenario)
+        print('\033[39m')
         self.new_game.start_game()
 
 
