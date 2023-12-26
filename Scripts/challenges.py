@@ -6,11 +6,13 @@ class Challenges(object):
         self.slow_print = SlowPrint()
 
     def spooky_lab_escape_challenge(self):
+        print()
         self.slow_print.print_slow("Not so easy to get out of the spooky lab")
         self.slow_print.print_slow("There is vicious zombie at the door of the spooky lab")
         self.slow_print.print_slow("You have to dodge the zombie in order to escape the lab")
         self.slow_print.print_slow("Here is a science quiz challenge ")
         input("Press ENTER to start the challenge")
+        print("\n")
         correct_ans_list, wrong_ans_list = [], []
         self.slow_print.print_slow("Q1. What is the chemical formula for water ?")
         self.slow_print.print_slow("A) CO B) CO₂ C) H₂O")
@@ -63,10 +65,12 @@ class Challenges(object):
             return False
 
     def escape_door_challenge(self):
+        print()
         self.slow_print.print_slow("Oh oh! There is a ghost right outside the escape door")
         self.slow_print.print_slow("You need to cast the magic spells to make it go away")
         self.slow_print.print_slow("Here is the 'Harry Potter' series magic spells quiz challenge")
         input("Press ENTER to start the challenge")
+        print("\n")
         correct_ans_list, wrong_ans_list = [], []
         self.slow_print.print_slow("Q1. What is the killing curse used by Voldemort to kill Harry in Movie 7 p2 ?")
         self.slow_print.print_slow("A) Crucio B) Avada Kedavra C) Imperio")

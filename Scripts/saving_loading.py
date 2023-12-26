@@ -131,6 +131,7 @@ class SaveLoadProcess(object):
                                                  player_data['char'], move_counter, location, date_time,
                                                  game_completion])
             csvfile.close()
+            self.slow_print.print_slow(f"Game saved successfully for user ID: {player_data['user_id']}.")
 
     def get_move_counter_for_load_game(self, moves_count_str):
         get_current_moves_str = moves_count_str
