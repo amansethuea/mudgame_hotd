@@ -35,24 +35,30 @@ class Locations(object):
             self.slow_print.print_slow(f"Hard luck!! You have exhausted the max number of moves at {self.difficulty_level} "
                   f"level i.e 6.")
             self.slow_print.print_slow("Please try again. Best of luck!!")
+            self.save_progress.save_progress(player_data, "heaven", "count("+str(expert_max_moves)+")")
             self.save_progress.make_username_available()
             self.save_progress.clear_user_level_info()
-            sys.exit(0)
+            #sys.exit(0)
+            return
         elif (self.difficulty_level in ["intermediate", "Intermediate", "INTERMEDIATE"]
               and move_count > intermediate_max_moves):
             self.slow_print.print_slow(f"Hard luck!! You have exhausted the max number of moves at {self.difficulty_level} level "
                   f"i.e 12.")
             self.slow_print.print_slow("Please try again. Best of luck!!")
+            self.save_progress.save_progress(player_data, "heaven", "count("+str(intermediate_max_moves)+")")
             self.save_progress.make_username_available()
             self.save_progress.clear_user_level_info()
-            sys.exit(0)
+            #sys.exit(0)
+            return
         elif self.difficulty_level in ["beginner", "Beginner", "BEGINNER"] and move_count > beginner_max_moves:
             self.slow_print.print_slow(f"Hard luck!! You have exhausted the max number of moves at {self.difficulty_level} "
                   f"level i.e 100.")
             self.slow_print.print_slow("Please try again. Best of luck!!")
+            self.save_progress.save_progress(player_data, "heaven", "count("+str(beginner_max_moves)+")")
             self.save_progress.make_username_available()
             self.save_progress.clear_user_level_info()
-            sys.exit(0)
+            #sys.exit(0)
+            return
         else:
             pass
 
@@ -226,8 +232,8 @@ class Locations(object):
                     self.slow_print.print_slow("Lucky. You came out alive!!!")
                     self.slow_print.print_slow("Congratulations ! You have finished the HOUSE OF THE DEAD.")
                     self.save_progress.save_progress(player_data, "escape_door", self.counter)
-                    #sys.exit(0)
                     return
+                    
                 else:
                     self.slow_print.print_slow("The key you entered is incorrect. Enter valid key")
                     self.slow_print.print_slow("NOTE: You cannot save the game at this point of time. "

@@ -19,16 +19,33 @@ class SaveLoadProcess(object):
 
     def clear_user_level_info(self):
 
-        f = open(self.get_level_file, "w")
-        f.write("")
-        f.write("UserID,Level")
-        f.close()
+        with open(self.get_level_file,"r") as level:
+            lines=level.readlines()
+            for index in range(0,len(lines)):
+                if (lines[index].split(","))[0]==self.userId:
+                    targetLineIndex=index
+            with open(self.get_level_file,"w") as level:
+                level.write("")
+                for l in range(0,len(lines)):
+                    if l!=targetLineIndex:
+                        level.writelines(lines[l])
+
 
     def make_username_available(self):
-        f = open(self.get_player_info_file, "w")
-        f.write("")
-        f.write("Name,Age,UserID,Character")
-        f.close()
+        
+        with open(self.get_player_info_file,"r") as level:
+            lines=level.readlines()
+            for index in range(0,len(lines)):
+                if len((lines[index].split(",")))==1:
+                    continue
+
+                if (lines[index].split(","))[2]==self.userId:
+                    targetLineIndex=index
+            with open(self.get_player_info_file,"w") as level:
+                level.write("")
+                for l in range(0,len(lines)):
+                    if l!=targetLineIndex:
+                        level.writelines(lines[l])
 
     def sort_leaderboard(self):
         with open(self.get_temp_leaderboard, 'r') as r:
@@ -92,6 +109,12 @@ class SaveLoadProcess(object):
                 game_completion = "T"
                 self.leaderboard(player_data, move_counter)
                 self.sort_leaderboard()
+                self.userId=player_data['user_id']
+                self.make_username_available()
+                self.clear_user_level_info()
+            elif location in ["heaven"]:
+                game_completion = "F"
+                self.userId=player_data['user_id']
                 self.make_username_available()
                 self.clear_user_level_info()
             else:
@@ -156,6 +179,9 @@ class SaveLoadProcess(object):
                 locations.sinister_stairway(player_data)
             elif get_user_dict['CurrentLocation'] == "escape_door":
                 self.slow_print.print_slow("You have already finished the game. Please start a new game.")
+                sys.exit(0)
+            elif get_user_dict['CurrentLocation'] == "heaven":
+                self.slow_print.print_slow("You have already died once. Remember, you can die only for once ;). Please start a new game.")
                 sys.exit(0)
             else:
                 self.slow_print.print_slow("Invalid Location")
