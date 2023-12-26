@@ -12,40 +12,40 @@ class SaveLoadProcess(object):
     def __init__(self):
         self.slow_print = SlowPrint()
         self.get_level_file = self.slow_print.check_dir_file_exists("Resources", "level.txt")
-        self.get_player_info_file = self.slow_print.check_dir_file_exists("Resources", "player_info.txt")
-        self.get_temp_leaderboard = self.slow_print.check_dir_file_exists("Resources", "leaderboard.txt")
-        self.get_final_leaderboard = self.slow_print.check_dir_file_exists("Resources", "final_leaderboard.txt")
-        self.get_current_game = self.slow_print.check_dir_file_exists("Resources", "current_game_progress_info.txt")
+        self.get_player_info_file = self.slow_print.check_dir_file_exists("Resources",
+                                                                          "player_info.txt")
+        self.get_temp_leaderboard = self.slow_print.check_dir_file_exists("Resources",
+                                                                          "leaderboard.txt")
+        self.get_final_leaderboard = self.slow_print.check_dir_file_exists("Resources",
+                                                                           "final_leaderboard.txt")
+        self.get_current_game = self.slow_print.check_dir_file_exists("Resources",
+                                                                      "current_game_progress_info.txt")
 
     def clear_user_level_info(self):
-
-        with open(self.get_level_file,"r") as level:
-            lines=level.readlines()
-            for index in range(0,len(lines)):
-                if (lines[index].split(","))[0]==self.userId:
-                    targetLineIndex=index
-            with open(self.get_level_file,"w") as level:
-                level.write("")
-                for l in range(0,len(lines)):
-                    if l!=targetLineIndex:
-                        level.writelines(lines[l])
-
+        with open(self.get_level_file, "r") as read_level:
+            lines = read_level.readlines()
+            for index in range(0, len(lines)):
+                if (lines[index].split(","))[0] == self.userId:
+                    target_line_index = index
+            with open(self.get_level_file, "w") as write_level:
+                write_level.write("")
+                for line in range(0, len(lines)):
+                    if line != target_line_index:
+                        write_level.writelines(lines[line])
 
     def make_username_available(self):
-        
-        with open(self.get_player_info_file,"r") as level:
-            lines=level.readlines()
-            for index in range(0,len(lines)):
-                if len((lines[index].split(",")))==1:
+        with open(self.get_player_info_file,"r") as read_level:
+            lines = read_level.readlines()
+            for index in range(0, len(lines)):
+                if len((lines[index].split(","))) == 1:
                     continue
-
-                if (lines[index].split(","))[2]==self.userId:
-                    targetLineIndex=index
-            with open(self.get_player_info_file,"w") as level:
-                level.write("")
-                for l in range(0,len(lines)):
-                    if l!=targetLineIndex:
-                        level.writelines(lines[l])
+                if (lines[index].split(","))[2] == self.userId:
+                    target_line_index = index
+            with open(self.get_player_info_file, "w") as write_level:
+                write_level.write("")
+                for line in range(0,len(lines)):
+                    if line != target_line_index:
+                        write_level.writelines(lines[line])
 
     def sort_leaderboard(self):
         with open(self.get_temp_leaderboard, 'r') as r:
@@ -61,14 +61,14 @@ class SaveLoadProcess(object):
                 f.write(row[0] + "," + row[1] + "," + row[2] + "," + str(count) + "," + row[4] + "\n")
             f.close()
             r.close()
-        csvData = pandasForSortingCSV.read_csv(self.get_final_leaderboard)
-        csvData.sort_values(["Moves"],
+        csv_data = pandasForSortingCSV.read_csv(self.get_final_leaderboard)
+        csv_data.sort_values(["Moves"],
                             axis=0,
                             ascending=[True],
                             inplace=True)
         fo = open(self.get_final_leaderboard, "w")
         fo.write("")
-        fo.write(str(csvData))
+        fo.write(str(csv_data))
         fo.close()
 
     def leaderboard(self, player_data, move_counter):
@@ -114,19 +114,21 @@ class SaveLoadProcess(object):
                 self.clear_user_level_info()
             elif location in ["heaven"]:
                 game_completion = "F"
-                self.userId=player_data['user_id']
+                self.userId = player_data['user_id']
                 self.make_username_available()
                 self.clear_user_level_info()
             else:
                 game_completion = "F"
             if self.check_header_existence(self.get_current_game):
-                write_current_progress.writerow([player_data['name'], player_data['user_id'], player_data['age'], player_data['char'],
-                                                 move_counter, location, date_time, game_completion])
+                write_current_progress.writerow([player_data['name'], player_data['user_id'], player_data['age'],
+                                                 player_data['char'], move_counter, location, date_time,
+                                                 game_completion])
             else:
-                write_current_progress.writerow(["Name", "UserID", "Age", "Character", "Moves", "CurrentLocation", "Date&Time",
-                                                 "GameCompletion"])
-                write_current_progress.writerow([player_data['name'], player_data['user_id'],player_data['age'], player_data['char'],
-                                                 move_counter, location, date_time, game_completion])
+                write_current_progress.writerow(["Name", "UserID", "Age", "Character", "Moves", "CurrentLocation",
+                                                 "Date&Time", "GameCompletion"])
+                write_current_progress.writerow([player_data['name'], player_data['user_id'], player_data['age'],
+                                                 player_data['char'], move_counter, location, date_time,
+                                                 game_completion])
             csvfile.close()
 
     def get_move_counter_for_load_game(self, moves_count_str):
@@ -140,15 +142,17 @@ class SaveLoadProcess(object):
         return get_move_count
 
     def load_game(self, user_id):
-        get_user_dict, game_version_list = {}, []
-        import operator
-        get_user_dict = {}
+        get_user_dict, game_version_list, get_user_list = {}, [], []
         with open(self.get_current_game, 'r') as data:
             for line in csv.DictReader(data):
                 for attr, val in line.items():
                     if attr == 'UserID':
                         if user_id == val:
                             game_version_list.append(line)
+                            get_user_list.append(line)
+            if not get_user_list:
+                self.slow_print.print_slow(f"{user_id} NOT FOUD. Please play a new game")
+                sys.exit(0)
             data.close()
 
         fetch_latest_progress = game_version_list[-1]
@@ -156,8 +160,8 @@ class SaveLoadProcess(object):
         
         if get_user_dict:
             # Forming player_data dict. Giving a random age as age is not used anywhere other than player_info.txt
-            player_data = {"name": get_user_dict["Name"], "age": get_user_dict["Age"] , "user_id": get_user_dict["UserID"],
-                           "char": get_user_dict["Character"]}
+            player_data = {"name": get_user_dict["Name"], "age": get_user_dict["Age"],
+                           "user_id": get_user_dict["UserID"], "char": get_user_dict["Character"]}
             self.slow_print.print_slow(f"Please wait. Loading game for user {get_user_dict['UserID']}")
             self.progress_bar()
             from locations import Locations
@@ -181,7 +185,8 @@ class SaveLoadProcess(object):
                 self.slow_print.print_slow("You have already finished the game. Please start a new game.")
                 sys.exit(0)
             elif get_user_dict['CurrentLocation'] == "heaven":
-                self.slow_print.print_slow("You have already died once. Remember, you can die only for once ;). Please start a new game.")
+                self.slow_print.print_slow("You have already died once. Remember, you can die only for once ;). "
+                                           "Please start a new game.")
                 sys.exit(0)
             else:
                 self.slow_print.print_slow("Invalid Location")

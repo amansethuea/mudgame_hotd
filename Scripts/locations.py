@@ -5,6 +5,7 @@ import csv
 from itertools import count
 from saving_loading import SaveLoadProcess
 from slow_print import SlowPrint
+from challenges import Challenges
 
 
 class Locations(object):
@@ -12,6 +13,9 @@ class Locations(object):
         self.counter = count(counter)
         self.save_progress = SaveLoadProcess()
         self.slow_print = SlowPrint()
+        self.challenge = Challenges()
+        self.spooky_lab_challenge_completion = False
+        self.escape_door_challenge_completion = False
 
     def difficulty_level_handling(self, player_data, counter):
         beginner_max_moves = 101
@@ -32,7 +36,8 @@ class Locations(object):
             data.close()
 
         if self.difficulty_level in ["expert", "Expert", "EXPERT"] and move_count > expert_max_moves:
-            self.slow_print.print_slow(f"Hard luck!! You have exhausted the max number of moves at {self.difficulty_level} "
+            self.slow_print.print_slow(f"Hard luck!! You have exhausted the max number of moves "
+                                       f"at {self.difficulty_level} "
                   f"level i.e 6.")
             self.slow_print.print_slow("Please try again. Best of luck!!")
             self.save_progress.save_progress(player_data, "heaven", "count("+str(expert_max_moves)+")")
@@ -42,7 +47,8 @@ class Locations(object):
             return
         elif (self.difficulty_level in ["intermediate", "Intermediate", "INTERMEDIATE"]
               and move_count > intermediate_max_moves):
-            self.slow_print.print_slow(f"Hard luck!! You have exhausted the max number of moves at {self.difficulty_level} level "
+            self.slow_print.print_slow(f"Hard luck!! You have exhausted the max number of moves "
+                                       f"at {self.difficulty_level} level "
                   f"i.e 12.")
             self.slow_print.print_slow("Please try again. Best of luck!!")
             self.save_progress.save_progress(player_data, "heaven", "count("+str(intermediate_max_moves)+")")
@@ -96,9 +102,11 @@ class Locations(object):
             self.deadly_dining_hall(player_data)
 
     def haunted_hallway(self, player_data):
-        self.slow_print.print_slow("You are in a creepy hallway where zombies are roaming looking for prey to suck blood out of them")
+        self.slow_print.print_slow("You are in a creepy hallway where zombies are roaming looking for prey to suck "
+                                   "blood out of them")
         self.slow_print.print_slow("You notice there are ways to the north (N) and south (S).")
-        self.slow_print.print_slow("BEWARE!!! DO NOT go to go the West (W) or East (E) if you don't wish to die the most painful death.")
+        self.slow_print.print_slow("BEWARE!!! DO NOT go to go the West (W) or East (E) if you don't wish to die "
+                                   "the most painful death.")
         self.slow_print.print_slow("Remember you can type Save/save the game at any point.")
         print()
         choice = input("Enter either N/North or S/South: ")
@@ -135,7 +143,8 @@ class Locations(object):
     def chilling_corridor(self, player_data):
         self.slow_print.print_slow("You are in a corridor which is freezing cold.")
         self.slow_print.print_slow("You see directions to the north (N) and west (W).")
-        self.slow_print.print_slow("BEWARE!!! DO NOT go to East (E) or South (S) if you wish not to die the most painful death.")
+        self.slow_print.print_slow("BEWARE!!! DO NOT go to East (E) or South (S) if you wish not to die the most "
+                                   "painful death.")
         self.slow_print.print_slow("Remember you can type Save/save the game at any point.")
         print()
         choice = input("Which way will you go to?  Make your choice: ")
@@ -164,7 +173,8 @@ class Locations(object):
         print()
         self.slow_print.print_slow("This is a wooden stairway. Be careful!!!")
         self.slow_print.print_slow("You see heavy wooden doors at the bottom of the stairs and back to the west.")
-        self.slow_print.print_slow("BEWARE!!! DO NOT go to East (E) or North (N) if you wish not to die the most painful death.")
+        self.slow_print.print_slow("BEWARE!!! DO NOT go to East (E) or North (N) if you wish not to die the most "
+                                   "painful death.")
         self.slow_print.print_slow("Remember you can type Save/save the game at any point.")
         print()
         choice = input("Will you take the door at the bottom of the stairs (S) or back to the west (W)? ")
@@ -193,7 +203,8 @@ class Locations(object):
         print()
         self.slow_print.print_slow("You're in a spooky lab with bubbling tubes of phosphorous liquids.")
         self.slow_print.print_slow("There's also a monstrous figure in the far corner.  It hasn't seen you yet.")
-        self.slow_print.print_slow("NOTE: You cannot save the game at this point of time. You have to get our of the spooky lab first.")
+        self.slow_print.print_slow("NOTE: You cannot save the game at this point of time. You have to get our of the "
+                                   "spooky lab first.")
         input("Press ENTER to continue.\n")
 
         self.slow_print.print_slow("There's a table with a drawer.\n")
@@ -208,6 +219,18 @@ class Locations(object):
         input("Press ENTER to leave the room.\n")
         self.slow_print.print_slow(f"Moves: {next(self.counter)}")
         self.difficulty_level_handling(player_data, self.counter)
+
+        if not self.spooky_lab_challenge_completion:
+            lab_challenge = self.challenge.spooky_lab_escape_challenge()
+            if lab_challenge:
+                self.spooky_lab_challenge_completion = True
+                self.slow_print.print_slow("GREAT JOB! You have successfully passed the Spooky Lab escape challenge")
+            else:
+                self.dead_in_challenge(player_data, "Spooky Lab escape")
+        else:
+            self.slow_print.print_slow(
+                "Seems like you have already completed Spooky Lab escape challenge. Proceeding..")
+
         self.chilling_corridor(player_data)
 
     def dark_dungeon(self, player_data):
@@ -217,7 +240,8 @@ class Locations(object):
         self.key_to_escape = pick_item + str(key_generator)
         self.slow_print.print_slow(f"You've found a dungeon which has {self.key_to_escape} allover")
         self.slow_print.print_slow("Remember what you've seen. This will help you to get out of the house.")
-        self.slow_print.print_slow("NOTE: You cannot save the game at this point of time. You have to get our of the dark dungeon first.")
+        self.slow_print.print_slow("NOTE: You cannot save the game at this point of time. You have to get our of the "
+                                   "dark dungeon first.")
         input("Press ENTER to head back up the stairs to the main hall.\n")
         self.slow_print.print_slow(f"Moves: {next(self.counter)}")
         self.difficulty_level_handling(player_data, self.counter)
@@ -229,6 +253,19 @@ class Locations(object):
             while key_code != self.key_to_escape:
                 key_input = input("Enter the key: ")
                 if key_input == self.key_to_escape:
+
+                    if not self.escape_door_challenge_completion:
+                        escape_challenge = self.challenge.escape_door_challenge()
+                        if escape_challenge:
+                            self.escape_door_challenge_completion = True
+                            self.slow_print.print_slow(
+                                "GREAT JOB! You have successfully passed the Escape Door challenge")
+                        else:
+                            self.dead_in_challenge(player_data, "Escape Door")
+                    else:
+                        self.slow_print.print_slow(
+                            "Seems like you have already completed the Escape Door challenge. Proceeding..")
+
                     self.slow_print.print_slow("Lucky. You came out alive!!!")
                     self.slow_print.print_slow("Congratulations ! You have finished the HOUSE OF THE DEAD.")
                     self.save_progress.save_progress(player_data, "escape_door", self.counter)
@@ -236,8 +273,8 @@ class Locations(object):
                     
                 else:
                     self.slow_print.print_slow("The key you entered is incorrect. Enter valid key")
-                    self.slow_print.print_slow("NOTE: You cannot save the game at this point of time. "
-                          "You have to enter the key or make a decision to back to dining hall first.")
+                    self.slow_print.print_slow("NOTE: You cannot save the game at this point of time. You have to "
+                                               "enter the key or make a decision to back to dining hall first.")
                     look_for_key = input("Enter F or Find to look for key again: ")
                     look_for_key = look_for_key.upper()
                     if look_for_key in ["F", "FIND"]:
@@ -265,6 +302,17 @@ class Locations(object):
             self.slow_print.print_slow("Thank you for playing the HOTD. See you next time!")
             self.save_progress.save_progress(player_data, "heaven", self.counter)
             #sys.exit(0)
+
+    def dead_in_challenge(self, player_data, challenge_name):
+        self.slow_print.print_slow(f"\n You lost the {challenge_name} challenge")
+        self.slow_print.print_slow("You're ...DEAD !!\n")
+        self.slow_print.print_slow(f"Oh dear {player_data['name']}. Never mind. Do you wish to play again?")
+        play_again = input('Type "YES" (and press ENTER) to play again, or just press ENTER to end the program. \n')
+        if play_again in ["YES", "yes", "Yes"]:
+            self.deadly_dining_hall(player_data)
+        else:
+            self.slow_print.print_slow("Thank you for playing the HOTD. See you next time!")
+            self.save_progress.save_progress(player_data, "heaven", self.counter)
 
 
 if __name__ == "__main__":
