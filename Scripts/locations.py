@@ -1,6 +1,8 @@
 import random
 import re
 import csv
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
 from itertools import count
 from saving_loading import SaveLoadProcess
 from slow_print import SlowPrint
@@ -70,6 +72,7 @@ class Locations(object):
         self.slow_print.print_slow("Do you go to the north (N), south (S) or east (E)?.")
         self.slow_print.print_slow("BEWARE!!! DO NOT go to go the West")
         self.slow_print.print_slow("Remember you can type Save/save the game at any point.")
+        self.slow_print.print_slow("Type Help / Map / Show Map to get current information")
         print()
         print('\033[39m')
 
@@ -91,6 +94,14 @@ class Locations(object):
             elif choice in ["W", "WEST"]:
                 self.slow_print.print_slow(f"Moves: {next(self.counter)}")
                 self.dead(player_data)
+            elif choice in ["MAP", "SHOW MAP", "HELP"]:
+                get_img = self.slow_print.check_dir_file_exists("Resources/Images",
+                                                                "location_full_map.png")
+                img = mpimg.imread(get_img)
+                plt.imshow(img)
+                plt.axis('off')
+                plt.show()
+                sub_function_dining_hall()
             elif choice in ["SAVE"]:
                 self.save_progress.save_progress(player_data, "deadly_dining_hall", self.counter)
                 print(f"\033[1;38;40m\033")
@@ -127,6 +138,7 @@ class Locations(object):
         self.slow_print.print_slow("BEWARE!!! DO NOT go to go the West (W) or East (E) if you don't wish to die "
                                    "the most painful death.")
         self.slow_print.print_slow("Remember you can type Save/save the game at any point.")
+        self.slow_print.print_slow("Type Help / Map / Show Map to get current information")
         print()
         print('\033[39m')
 
@@ -154,6 +166,14 @@ class Locations(object):
             elif choice in ["W", "WEST", "E", "EAST"]:
                 self.slow_print.print_slow(f"Moves: {next(self.counter)}")
                 self.dead(player_data)
+            elif choice in ["MAP", "SHOW MAP", "HELP"]:
+                get_img = self.slow_print.check_dir_file_exists("Resources/Images",
+                                                                "location_full_map.png")
+                img = mpimg.imread(get_img)
+                plt.imshow(img)
+                plt.axis('off')
+                plt.show()
+                sub_function_haunted_hallway()
             elif choice in ["SAVE"]:
                 self.save_progress.save_progress(player_data, "haunted_hallway", self.counter)
                 self.slow_print.print_slow("Do you wish to continue playing or exit ?")
@@ -183,6 +203,7 @@ class Locations(object):
         self.slow_print.print_slow("BEWARE!!! DO NOT go to East (E) or South (S) if you wish not to die the most "
                                    "painful death.")
         self.slow_print.print_slow("Remember you can type Save/save the game at any point.")
+        self.slow_print.print_slow("Type Help / Map / Show Map to get current information")
         print()
         print('\033[39m')
 
@@ -201,6 +222,14 @@ class Locations(object):
                 self.slow_print.print_slow(f"Moves: {next(self.counter)}")
                 self.difficulty_level_handling(player_data, self.counter)
                 self.dead(player_data)
+            elif choice in ["MAP", "SHOW MAP", "HELP"]:
+                get_img = self.slow_print.check_dir_file_exists("Resources/Images",
+                                                                "location_full_map.png")
+                img = mpimg.imread(get_img)
+                plt.imshow(img)
+                plt.axis('off')
+                plt.show()
+                sub_function_chilling_corridor()
             elif choice in ["SAVE"]:
                 self.save_progress.save_progress(player_data, "chilling_corridor", self.counter)
                 self.slow_print.print_slow("Do you wish to continue playing or exit ?")
@@ -230,6 +259,7 @@ class Locations(object):
         self.slow_print.print_slow("BEWARE!!! DO NOT go to East (E) or North (N) if you wish not to die the most "
                                    "painful death.")
         self.slow_print.print_slow("Remember you can type Save/save the game at any point.")
+        self.slow_print.print_slow("Type Help / Map / Show Map to get current information")
         print()
         print('\033[39m')
 
@@ -248,6 +278,14 @@ class Locations(object):
                 self.slow_print.print_slow(f"Moves: {next(self.counter)}")
                 self.difficulty_level_handling(player_data, self.counter)
                 self.dead(player_data)
+            elif choice in ["MAP", "SHOW MAP", "HELP"]:
+                get_img = self.slow_print.check_dir_file_exists("Resources/Images",
+                                                                "location_full_map.png")
+                img = mpimg.imread(get_img)
+                plt.imshow(img)
+                plt.axis('off')
+                plt.show()
+                sub_function_sinister_stairway()
             elif choice in ["SAVE"]:
                 self.save_progress.save_progress(player_data, "sinister_stairway", self.counter)
                 self.slow_print.print_slow("Do you wish to continue playing or exit ?")
