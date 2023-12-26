@@ -25,12 +25,12 @@ class CharacterCreation(object):
                     player_write_file = open(get_file, "a")
 
                     complete_info = (f"{new_player_data_dict['name']},{new_player_data_dict['age']},"
-                                    f"{new_player_data_dict['user_id']},{new_player_data_dict['char']}")
+                                     f"{new_player_data_dict['user_id']},{new_player_data_dict['char']}")
                     player_write_file.write("\n")
                     player_write_file.write(complete_info)
                     player_write_file.close()
                     self.slow_print.print_slow(f"Awesome! New character created for "
-                        f"{new_player_data_dict['name']} /  {new_player_data_dict['user_id']}")
+                                               f"{new_player_data_dict['name']} /  {new_player_data_dict['user_id']}")
                     self.slow_print.print_slow("Let's begin the haunted adventure. But first, one last step :) ")
                     return new_player_data_dict
                 else:
@@ -48,7 +48,7 @@ class CharacterCreation(object):
                 player_write_file.write(complete_info)
                 player_write_file.close()
                 self.slow_print.print_slow(f"Awesome! New character created for "
-                      f"{new_player_data_dict['name']} /  {new_player_data_dict['user_id']}")
+                                           f"{new_player_data_dict['name']} /  {new_player_data_dict['user_id']}")
                 self.slow_print.print_slow("Let's begin the haunted adventure.")
                 return new_player_data_dict
         else:
@@ -57,9 +57,37 @@ class CharacterCreation(object):
 
     def character_creation(self):
         self.slow_print.print_slow("PLAYERS INFORMATION")
-        player_name = input("Enter your name: ")
-        player_age = input("Enter your age: ")
-        player_user_id = input("Enter your user id: ")
+
+        def has_numbers(input_string):
+            return any(char.isdigit() for char in input_string)
+
+        while True:
+            player_name = input("Enter your name: ")
+            if has_numbers(player_name):
+                self.slow_print.print_slow(f"{player_name} contains numeric values. Please make sure name only "
+                                           f"contains alphabets")
+            else:
+                break
+
+        def has_aplhabets(input_string):
+            return any(char.isalpha() for char in input_string)
+
+        while True:
+            player_age = input("Enter your age: ")
+            if has_aplhabets(player_age):
+                self.slow_print.print_slow(f"{player_age} contains alphabetical values. Please make sure age only "
+                                           f"contains numbers between 3 - 99")
+            elif int(player_age) < 3 or int(player_age) > 99:
+                self.slow_print.print_slow(f"{player_age} can only be between 3 - 99")
+            else:
+                break
+
+        while True:
+            player_user_id = input("Enter your user id: ")
+            if len(player_user_id) < 3 or len(player_user_id) > 15:
+                self.slow_print.print_slow(f"The length of user ID should be between range 3-15. Please try again")
+            else:
+                break
 
         while True:
             self.slow_print.print_slow("CHARACTER SELECTION")
