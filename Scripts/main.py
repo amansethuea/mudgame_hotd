@@ -5,6 +5,7 @@ from new_game import NewGame
 from slow_print import SlowPrint
 from HtmlTestRunner import HTMLTestRunner
 from test_unitTests import testUserId, testAge, testName, testGameStatus, testLeaderBoard, testLevel_and_PlayerInfo
+from pygame import mixer
 
 
 class HouseOfTheDead(object):
@@ -19,6 +20,9 @@ class HouseOfTheDead(object):
         if "not found" not in get_requirement_file:
             os.system(f"pip install -r {get_requirement_file}")
         self.slow_print.print_slow("Packages Installed. Proceeding")
+        mixer.init()
+        mixer.music.load('../Resources/Audio/horror-ambience.wav')
+        mixer.music.play()
         print()
         self.logo.logo()
         scenario = ("""

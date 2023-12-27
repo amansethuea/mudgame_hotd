@@ -1,5 +1,6 @@
 import sys
 from slow_print import SlowPrint
+from pygame import mixer
 
 
 class CharacterCreation(object):
@@ -59,6 +60,10 @@ class CharacterCreation(object):
             sys.exit(0)
 
     def character_creation(self):
+        mixer.music.stop()
+        mixer.init()
+        mixer.music.load('../Resources/Audio/horror-ambience.wav')
+        mixer.music.play()
         self.slow_print.print_slow("PLAYERS INFORMATION")
 
         def has_numbers(input_string):

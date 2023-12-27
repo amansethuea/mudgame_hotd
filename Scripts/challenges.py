@@ -1,4 +1,5 @@
 from slow_print import SlowPrint
+from pygame import mixer
 
 
 class Challenges(object):
@@ -6,6 +7,10 @@ class Challenges(object):
         self.slow_print = SlowPrint()
 
     def spooky_lab_escape_challenge(self):
+        mixer.music.stop()
+        mixer.init()
+        mixer.music.load('../Resources/Audio/horror-ambience.wav')
+        mixer.music.play()
         print(f"\033[1;35;40m\033")
         print()
         self.slow_print.print_slow("Not so easy to get out of the spooky lab")
@@ -67,6 +72,10 @@ class Challenges(object):
             return False
 
     def escape_door_challenge(self):
+        mixer.music.stop()
+        mixer.init()
+        mixer.music.load('../Resources/Audio/horror-ambience.wav')
+        mixer.music.play()
         print(f"\033[1;34;40m\033")
         print()
         self.slow_print.print_slow("Oh oh! There is a ghost right outside the escape door")

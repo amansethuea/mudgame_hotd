@@ -7,6 +7,7 @@ from itertools import count
 from saving_loading import SaveLoadProcess
 from slow_print import SlowPrint
 from challenges import Challenges
+from pygame import mixer
 
 
 class Locations(object):
@@ -65,6 +66,10 @@ class Locations(object):
             pass
 
     def deadly_dining_hall(self, player_data):
+        mixer.music.stop()
+        mixer.init()
+        mixer.music.load('../Resources/Audio/horror-ambience.wav')
+        mixer.music.play()
         print(f"\033[1;36;40m\033")
         print()
         self.slow_print.print_slow("You are in the main dining hall of the haunted house, standing alone, in the dark.")
@@ -131,6 +136,10 @@ class Locations(object):
         sub_function_dining_hall()
 
     def haunted_hallway(self, player_data):
+        mixer.music.stop()
+        mixer.init()
+        mixer.music.load('../Resources/Audio/horror-ambience.wav')
+        mixer.music.play()
         print(f"\033[1;37;40m\033")
         self.slow_print.print_slow("You are in a creepy hallway where zombies are roaming looking for prey to suck "
                                    "blood out of them")
@@ -252,6 +261,10 @@ class Locations(object):
         sub_function_chilling_corridor()
 
     def sinister_stairway(self, player_data):
+        mixer.music.stop()
+        mixer.init()
+        mixer.music.load('../Resources/Audio/horror-ambience.wav')
+        mixer.music.play()
         print(f"\033[1;34;40m\033")
         print()
         self.slow_print.print_slow("This is a wooden stairway. Be careful!!!")
@@ -403,6 +416,10 @@ class Locations(object):
             self.deadly_dining_hall(player_data)
 
     def dead(self, player_data):
+        mixer.music.stop()
+        mixer.init()
+        mixer.music.load('../Resources/Audio/player_dead.wav')
+        mixer.music.play()
         self.slow_print.print_slow("\nYou push some unwanted door, it creeks as it opens.")
         self.slow_print.print_slow("This is a very strange, dark place, but you walk in.")
         self.slow_print.print_slow("The door slams shut !!\n")
@@ -418,6 +435,10 @@ class Locations(object):
             self.save_progress.save_progress(player_data, "heaven", self.counter)
 
     def dead_in_challenge(self, player_data, challenge_name):
+        mixer.music.stop()
+        mixer.init()
+        mixer.music.load('../Resources/Audio/player_dead.wav')
+        mixer.music.play()
         self.slow_print.print_slow(f"\n You lost the {challenge_name} challenge")
         self.slow_print.print_slow("You're ...DEAD !!\n")
         self.slow_print.print_slow(f"Oh dear {player_data['name']}. Never mind. Do you wish to play again?")
