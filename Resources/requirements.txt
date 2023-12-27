@@ -1,3 +1,4 @@
 progressbar2==4.2.0
 html-testRunner==1.2.1
 matplotlib==3.8.2
+pygame==2.5.2
