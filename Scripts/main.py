@@ -21,7 +21,7 @@ class HouseOfTheDead(object):
             os.system(f"pip install -r {get_requirement_file}")
         self.slow_print.print_slow("Packages Installed. Proceeding")
         mixer.init()
-        mixer.music.load('../Resources/Audio/horror-ambience.wav')
+        mixer.music.load(self.slow_print.check_dir_file_exists("Resources/Audio","horror-ambience.wav"))
         mixer.music.play()
         print()
         self.logo.logo()
