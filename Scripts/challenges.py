@@ -9,7 +9,7 @@ class Challenges(object):
     def spooky_lab_escape_challenge(self):
         mixer.music.stop()
         mixer.init()
-        mixer.music.load('../Resources/Audio/horror-ambience.wav')
+        mixer.music.load(self.slow_print.check_dir_file_exists("Resources/Audio","horror-ambience.wav"))
         mixer.music.play()
         print(f"\033[1;35;40m\033")
         print()
@@ -74,7 +74,7 @@ class Challenges(object):
     def escape_door_challenge(self):
         mixer.music.stop()
         mixer.init()
-        mixer.music.load('../Resources/Audio/horror-ambience.wav')
+        mixer.music.load(self.slow_print.check_dir_file_exists("Resources/Audio","horror-ambience.wav"))
         mixer.music.play()
         print(f"\033[1;34;40m\033")
         print()

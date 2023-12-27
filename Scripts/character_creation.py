@@ -62,7 +62,7 @@ class CharacterCreation(object):
     def character_creation(self):
         mixer.music.stop()
         mixer.init()
-        mixer.music.load('../Resources/Audio/horror-ambience.wav')
+        mixer.music.load(self.slow_print.check_dir_file_exists("Resources/Audio","horror-ambience.wav"))
         mixer.music.play()
         self.slow_print.print_slow("PLAYERS INFORMATION")
 
