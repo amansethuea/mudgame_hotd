@@ -46,8 +46,13 @@ if __name__ == "__main__":
     suite5 = (loader.loadTestsFromTestCase(testLeaderBoard))
     suite6 = (loader.loadTestsFromTestCase(testLevel_and_PlayerInfo))
     mergedTests = unittest.TestSuite([suite, suite2, suite3, suite4, suite5, suite6])
-    
-    with open('Tests/test_report.html', 'w') as f:
+
+    if os.path.isdir("../../mudgame_hotd/Tests"):
+        dir_name = "../../mudgame_hotd/Tests"
+    else:
+        dir_name = "../mudgame_hotd/Tests"
+
+    with open(f'{dir_name}/test_report.html', 'w') as f:
      
-        runner = HTMLTestRunner(stream=f, combine_reports=True,open_in_browser=True,output="Tests")
+        runner = HTMLTestRunner(stream=f, combine_reports=True, open_in_browser=True, output=dir_name)
         result = runner.run(mergedTests)
