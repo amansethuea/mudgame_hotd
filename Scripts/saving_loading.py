@@ -34,7 +34,7 @@ class SaveLoadProcess(object):
                         write_level.writelines(lines[line])
 
     def make_username_available(self):
-        with open(self.get_player_info_file,"r") as read_level:
+        with open(self.get_player_info_file, "r") as read_level:
             lines = read_level.readlines()
             for index in range(0, len(lines)):
                 if len((lines[index].split(","))) == 1:
@@ -43,7 +43,7 @@ class SaveLoadProcess(object):
                     target_line_index = index
             with open(self.get_player_info_file, "w") as write_level:
                 write_level.write("")
-                for line in range(0,len(lines)):
+                for line in range(0, len(lines)):
                     if line != target_line_index:
                         write_level.writelines(lines[line])
 
@@ -110,7 +110,7 @@ class SaveLoadProcess(object):
                 game_completion = "T"
                 self.leaderboard(player_data, move_counter)
                 self.sort_leaderboard()
-                self.userId=player_data['user_id']
+                self.userId = player_data['user_id']
                 self.make_username_available()
                 self.clear_user_level_info()
             elif location in ["heaven"]:

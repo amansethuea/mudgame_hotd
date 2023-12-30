@@ -16,10 +16,11 @@ class HouseOfTheDead(object):
 
     def main(self):
         mixer.init()
-        mixer.music.load(self.slow_print.check_dir_file_exists("Resources/Audio","horror-ambience.wav"))
+        mixer.music.load(self.slow_print.check_dir_file_exists("Resources/Audio",
+                                                               "horror-ambience.wav"))
         mixer.music.play()
         print()
-        self.logo.logo()
+        logo()
         scenario = ("""
            SCENARIO :-
            It's Halloween night and you happen to discover an abandoned house. 

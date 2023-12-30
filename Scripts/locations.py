@@ -68,7 +68,8 @@ class Locations(object):
     def deadly_dining_hall(self, player_data):
         mixer.music.stop()
         mixer.init()
-        mixer.music.load(self.slow_print.check_dir_file_exists("Resources/Audio","horror-ambience.wav"))
+        mixer.music.load(self.slow_print.check_dir_file_exists("Resources/Audio",
+                                                               "horror-ambience.wav"))
         mixer.music.play()
         print(f"\033[1;36;40m\033")
         print()
@@ -138,7 +139,8 @@ class Locations(object):
     def haunted_hallway(self, player_data):
         mixer.music.stop()
         mixer.init()
-        mixer.music.load(self.slow_print.check_dir_file_exists("Resources/Audio","horror-ambience.wav"))
+        mixer.music.load(self.slow_print.check_dir_file_exists("Resources/Audio",
+                                                               "horror-ambience.wav"))
         mixer.music.play()
         print(f"\033[1;37;40m\033")
         self.slow_print.print_slow("You are in a creepy hallway where zombies are roaming looking for prey to suck "
@@ -263,7 +265,8 @@ class Locations(object):
     def sinister_stairway(self, player_data):
         mixer.music.stop()
         mixer.init()
-        mixer.music.load(self.slow_print.check_dir_file_exists("Resources/Audio","horror-ambience.wav"))
+        mixer.music.load(self.slow_print.check_dir_file_exists("Resources/Audio",
+                                                               "horror-ambience.wav"))
         mixer.music.play()
         print(f"\033[1;34;40m\033")
         print()
@@ -418,7 +421,8 @@ class Locations(object):
     def dead(self, player_data):
         mixer.music.stop()
         mixer.init()
-        mixer.music.load(self.slow_print.check_dir_file_exists("Resources/Audio","player_dead.wav"))
+        mixer.music.load(self.slow_print.check_dir_file_exists("Resources/Audio",
+                                                               "player_dead.wav"))
         mixer.music.play()
         self.slow_print.print_slow("\nYou push some unwanted door, it creeks as it opens.")
         self.slow_print.print_slow("This is a very strange, dark place, but you walk in.")
@@ -437,7 +441,8 @@ class Locations(object):
     def dead_in_challenge(self, player_data, challenge_name):
         mixer.music.stop()
         mixer.init()
-        mixer.music.load(self.slow_print.check_dir_file_exists("Resources/Audio","player_dead.wav"))
+        mixer.music.load(self.slow_print.check_dir_file_exists("Resources/Audio",
+                                                               "player_dead.wav"))
         mixer.music.play()
         self.slow_print.print_slow(f"\n You lost the {challenge_name} challenge")
         self.slow_print.print_slow("You're ...DEAD !!\n")
