@@ -20,7 +20,7 @@ class HouseOfTheDead(object):
                                                                "horror-ambience.wav"))
         mixer.music.play()
         print()
-        logo()
+        self.logo.logo()
         scenario = ("""
            SCENARIO :-
            It's Halloween night and you happen to discover an abandoned house. 
