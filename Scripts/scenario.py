@@ -38,8 +38,16 @@ class HouseOfTheDead(object):
 if __name__ == "__main__":
     obj = HouseOfTheDead()
     obj.main()
+
+    obj2=SlowPrint()
+    lb=open(obj2.check_dir_file_exists("Resources", "final_leaderboard.txt"),"r")
+    lb2=lb.readlines()
+    print("\n")
+    for i in range(0,len(lb2)):
+        print(lb2[i])
+
     loader = unittest.TestLoader()
-   
+    
     suite = (loader.loadTestsFromTestCase(TestAge))
     suite2 = (loader.loadTestsFromTestCase(TestName))
     suite3 = (loader.loadTestsFromTestCase(TestUserId))
