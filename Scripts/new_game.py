@@ -24,7 +24,8 @@ class NewGame(object):
     def start_game(self):
         while True:
             print(f"\033[1;37;40m\033")
-            game_type = input("Do you wish to play new game, load saved game or see the leaderboard? Please enter new, load or lb respectively: ")
+            game_type = input("Do you wish to play new game, load saved game or see the leaderboard? Please enter new, "
+                              "load or lb respectively: ")
             game_type_upper = game_type.upper()
             if game_type_upper in ["NEW", "LOAD", "END", "LB"]:
                 if game_type_upper == "NEW":
@@ -51,7 +52,7 @@ class NewGame(object):
                                                        "out of: Beginner / Intermediate / Expert")
                             print('\033[39m')
                     break
-                elif game_type_upper == "END":
+                elif game_type_upper in ["END", "EXIT"]:
                     print(f"\033[1;37;40m\033")
                     self.slow_print.print_slow("It's sad you chose not to play. See you next time!")
                     print('\033[39m')
@@ -63,12 +64,8 @@ class NewGame(object):
                     print('\033[39m')
                     self.save_load.load_game(user_id)
                     break
-                elif game_type_upper == "LB":
-                    lb=open(self.slow_print.check_dir_file_exists("Resources", "final_leaderboard.txt"),"r")
-                    lb2=lb.readlines()
-                    print("\n")
-                    for i in range(0,len(lb2)):
-                        print(lb2[i])
+                elif game_type_upper in ["LB", "LEADERBOARD", "LEADER BOARD", "LEADER", "BOARD"]:
+                    self.save_load.sort_leaderboard()
                 else:
                     self.slow_print.print_slow("Invalid Input. Please enter valid input.")
             else:
