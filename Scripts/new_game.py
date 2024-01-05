@@ -27,7 +27,8 @@ class NewGame(object):
             game_type = input("Do you wish to play new game, load saved game or see the leaderboard? Please enter new, "
                               "load or lb respectively: ")
             game_type_upper = game_type.upper()
-            if game_type_upper in ["NEW", "LOAD", "END", "LB"]:
+            if (game_type_upper in
+                    ["NEW", "LOAD", "END", "LB", "EXIT", "LEADERBOARD", "LEADER BOARD", "LEADER", "BOARD"]):
                 if game_type_upper == "NEW":
                     self.slow_print.print_slow("Setting up new game for you. Please wait")
                     self.progress_bar()
