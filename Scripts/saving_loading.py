@@ -153,8 +153,9 @@ class SaveLoadProcess(object):
                             game_version_list.append(line)
                             get_user_list.append(line)
             if not get_user_list:
-                self.slow_print.print_slow(f"{user_id} NOT FOUD. Please play a new game")
-                sys.exit(0)
+                self.slow_print.print_slow(f"{user_id} NOT FOUND. Please play a new game")
+                data.close()
+                return False
             data.close()
 
         fetch_latest_progress = game_version_list[-1]
