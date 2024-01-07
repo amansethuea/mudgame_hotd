@@ -1,6 +1,5 @@
 import csv
 import re
-import sys
 import time
 import progressbar
 from datetime import datetime
@@ -186,11 +185,9 @@ class SaveLoadProcess(object):
                 locations.sinister_stairway(player_data)
             elif get_user_dict['CurrentLocation'] == "escape_door":
                 self.slow_print.print_slow("You have already finished the game. Please start a new game.")
-                sys.exit(0)
             elif get_user_dict['CurrentLocation'] == "heaven":
                 self.slow_print.print_slow("You have already died once. Remember, you can die only for once ;). "
                                            "Please start a new game.")
-                sys.exit(0)
             else:
                 self.slow_print.print_slow("Invalid Location")
         else:
