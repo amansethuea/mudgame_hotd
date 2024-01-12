@@ -39,6 +39,14 @@ class NewGame(object):
                         if (difficulty_level in
                                 ["Beginner", "beginner", "BEGINNER", "Intermediate", "intermediate", "INTERMEDIATE",
                                  "Expert", "expert", "EXPERT"]):
+
+                            if difficulty_level in ["Beginner", "beginner", "BEGINNER"]:
+                                self.slow_print.print_slow("You have got 100 Moves to escape the House Of The Dead.")
+                            elif difficulty_level in ["Intermediate", "intermediate", "INTERMEDIATE"]:
+                                self.slow_print.print_slow("You have got 12 Moves to escape the House Of The Dead")
+                            elif difficulty_level in ["Expert", "expert", "EXPERT"]:
+                                self.slow_print.print_slow("You have got 6 Moves to escape the House Of The Dead")
+
                             get_file = self.slow_print.check_dir_file_exists("Resources", "level.txt")
                             fo = open(get_file, "a")
                             fo.write("\n")
