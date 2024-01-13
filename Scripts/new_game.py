@@ -72,6 +72,7 @@ class NewGame(object):
                     self.slow_print.print_slow("Hang on! We are bringing back your favourite MUD game.")
                     print('\033[39m')
                     self.save_load.load_game(user_id)
+                    break
                 elif game_type_upper in ["LB", "LEADERBOARD", "LEADER BOARD", "LEADER", "BOARD"]:
                     self.save_load.sort_leaderboard()
                 else:
