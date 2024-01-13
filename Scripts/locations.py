@@ -22,9 +22,9 @@ class Locations(object):
         self.escape_door_challenge_completion = False
 
     def difficulty_level_handling(self, player_data, counter):
-        beginner_max_moves = 100
-        intermediate_max_moves = 12
-        expert_max_moves = 6
+        beginner_max_moves = 101
+        intermediate_max_moves = 13
+        expert_max_moves = 7
 
         counter = str(counter)
         count_list = re.findall(r'\b\d+\b', counter)
@@ -44,20 +44,20 @@ class Locations(object):
                                        f"at {self.difficulty_level} level i.e 6.")
             self.slow_print.print_slow("Please try again. Best of luck!!")
             self.save_progress.save_progress(player_data, "heaven", "count("+str(expert_max_moves)+")")
-            return
+            sys.exit(0)
         elif (self.difficulty_level in ["intermediate", "Intermediate", "INTERMEDIATE"]
               and move_count > intermediate_max_moves):
             self.slow_print.print_slow(f"Hard luck!! You have exhausted the max number of moves "
                                        f"at {self.difficulty_level} level i.e 12.")
             self.slow_print.print_slow("Please try again. Best of luck!!")
             self.save_progress.save_progress(player_data, "heaven", "count("+str(intermediate_max_moves)+")")
-            return
+            sys.exit(0)
         elif self.difficulty_level in ["beginner", "Beginner", "BEGINNER"] and move_count > beginner_max_moves:
             self.slow_print.print_slow(f"Hard luck!! You have exhausted the max number of "
                                        f"moves at {self.difficulty_level} level i.e 100.")
             self.slow_print.print_slow("Please try again. Best of luck!!")
             self.save_progress.save_progress(player_data, "heaven", "count("+str(beginner_max_moves)+")")
-            return
+            sys.exit(0)
         else:
             pass
 
